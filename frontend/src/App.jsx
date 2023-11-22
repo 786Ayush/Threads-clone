@@ -2,7 +2,7 @@ import { Login } from "./features/user/components/Login";
 import { Signup } from "./features/user/components/Signup";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage";
-
+import EditPofile from "./pages/EditProfile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <ProfilePage></ProfilePage>,
+  },
+  {
+    path: "/editprofile",
+    element: <EditPofile></EditPofile>,
   },
 ]);
 function App() {
