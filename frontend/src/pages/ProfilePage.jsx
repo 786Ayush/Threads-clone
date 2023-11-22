@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import icon from "../assests/icon.svg";
 import menu from "../assests/menu.svg";
+import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
+
   const userName = "John Doe";
   const userHandle = "@johndoe";
   const bio = "hello my name is John";
@@ -40,9 +42,12 @@ const ProfilePage = () => {
           </div>
         </div>
         <div className="flex ">
-          <button className="mx-auto rounded-[10px] md:mt-28 mt-10 bg-black border w-[95%]  hover:bg-white hover:text-black text-white px-4 py-2">
+          <Link
+            className="mx-auto justify-center flex rounded-[10px] md:mt-28 mt-10 bg-black border w-[95%]  hover:bg-white hover:text-black text-white px-4 py-2"
+            to="/editprofile"
+          >
             Edit Profile
-          </button>
+          </Link>
         </div>
       </header>
     </div>
