@@ -1,4 +1,8 @@
 import React from "react";
+import heart from "../../assests/heartwb.svg";
+import share from "../../assests/sharew.svg";
+import repost from "../../assests/repostw.svg";
+import comment from "../../assests/commentw.svg";
 
 const PostLayout = (props) => {
   const { firstName, icon, content, contentType, replies, likes } = props.data;
@@ -29,7 +33,22 @@ const PostLayout = (props) => {
           </video>
         )}
       </div>
-
+      &nbsp;&nbsp;
+      <div className="flex items-center space-x-1 ">
+          <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
+            <img src={heart} alt="like" width="20" height="20" />
+            
+          </button>
+          <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
+          <img src={comment} alt="like" width="20" height="20"/>
+          </button>
+          <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
+          <img src={repost} alt="like" width="20" height="20"/>
+          </button>
+          <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
+          <img src={share} alt="like" width="20" height="20"/>
+          </button>
+        </div>
       
       <div className="flex  p-4  text-gray-500">
         <div className="flex items-center">

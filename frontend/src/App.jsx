@@ -2,10 +2,10 @@ import { Login } from "./features/user/components/Login";
 import { Signup } from "./features/user/components/Signup";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage";
-<<<<<<< Updated upstream
+
 import EditPofile from "./pages/EditProfile";
-=======
 import PostLayout from "./pages/components/PostLayout";
+import Navbar from "./pages/Navbar";
 
 const textPost = {
   firstName: 'Ayush Gupta',
@@ -36,7 +36,7 @@ const videoPost = {
 
 // Usage
 
->>>>>>> Stashed changes
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -55,11 +55,11 @@ const router = createBrowserRouter([
     element: <ProfilePage></ProfilePage>,
   },
   {
-<<<<<<< Updated upstream
+
     path: "/editprofile",
     element: <EditPofile></EditPofile>,
   },
-=======
+  {
     path: "/post",
     element: <>
     <PostLayout data={textPost} />
@@ -67,7 +67,11 @@ const router = createBrowserRouter([
     <PostLayout data={videoPost}/>
     </>
   }
->>>>>>> Stashed changes
+  ,{
+    path:"/navbar",
+    element: <Navbar/>
+  }
+
 ]);
 function App() {
   return (
