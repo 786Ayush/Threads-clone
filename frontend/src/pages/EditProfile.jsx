@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import pic from "../assests/profile.jpg";
-
+import { Link } from "react-router-dom";
 const EditProfile = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -27,8 +27,12 @@ const EditProfile = () => {
     <div className="mb-0 scroll-none">
       <div className="sticky md:hidden top-0 bg-bgColor py-4">
         <div className="flex justify-between px-4">
-          <button className="text-white focus:outline-none">Cancel</button>
-          <button className="focus:outline-none text-blue-500">Done</button>
+          <Link to="/profile">
+            <button className="text-white focus:outline-none">Cancel</button>
+          </Link>
+          <Link to="/profile">
+            <button className="focus:outline-none text-blue-500">Done</button>
+          </Link>
         </div>
       </div>
       <div className="flex items-center mb-0 justify-center h-screen">
@@ -67,9 +71,11 @@ const EditProfile = () => {
               />
             </div>
           </div>
-          <button className="bg-white hidden md:block text-black w-full px-4 py-2 rounded-md">
-            Done
-          </button>
+          <Link to="/profile">
+            <button className="bg-white hidden md:block text-black w-full px-4 py-2 rounded-md">
+              Done
+            </button>
+          </Link>
         </div>
       </div>
     </div>
