@@ -10,28 +10,20 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
-import { createStore } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { home,notification,profile,search,create } from '../../redux/slice';
 
 
 const Navbar = () => {
-  const [nav,setnav] = useState("Home");
-
+  
+  const dispatch = useDispatch();
+  const nav = useSelector((state) => state.menu);
   // Function to toggle the visibility of the dropdown
-  const setsearch = () => {
-    setnav("search");
-  };
-  const setcreate = () => {
-    setnav("create");
-  };
-  const setnotification = () => {
-    setnav("notification");
-  };
-  const setprofile = () => {
-    setnav("profile");
-  };
-  const sethome =() =>{
-    setnav("Home");
-  };
+  const Home=(e)=>{
+    e.preventDefault()
+    dispatch(home())
+  }
+  
    return (
     <nav className=" p-4 ">
       <div className="container mx-auto flex justify-center sm:justify-around items-center">
@@ -42,36 +34,37 @@ const Navbar = () => {
           <Link
             to="/"
             className="text-white hover:bg-gray-800 p-4 hover:rounded md:block hidden" 
-            onClick={sethome}
+            onClick={()=>{dispatch(home())}}
           >
-            {nav==="Home"?<GoHome className='w-10 h-10 '/>:<GoHome className='w-10 h-10 text-gray-700'/>}
-            {/* <img src={home} alt="home" width="30" height="30" />{" "} */}
+            {console.log(nav)}
+            {nav==="home"?<GoHome className='w-10 h-10 '/>:<GoHome className='w-10 h-10 text-gray-700'/>}
+            
           </Link>
           <Link
             to="/search"
             className="text-white hover:bg-gray-800 p-4 hover:rounded md:block hidden"
-            onClick={setsearch}
+            onClick={()=>dispatch(search())}
           >
             {nav==="search"?<IoSearch className='w-10 h-10 '/>:<IoSearch className='w-10 h-10 text-gray-700'/>}
           </Link>
           <Link
             to="/create"
             className="text-white hover:bg-gray-800 p-4 hover:rounded md:block hidden"
-            onClick={setcreate}
+            onClick={()=>dispatch(create())}
           >
             {nav==="create"?<IoMdAdd className='w-10 h-10 '/>:<IoMdAdd className='w-10 h-10 text-gray-700'/>}
           </Link>
           <Link
             to="/notification"
             className="text-white hover:bg-gray-800 p-4 hover:rounded md:block hidden"
-            onClick={setnotification}
+            onClick={()=>dispatch(notification())}
           >
             {nav==="notification"?<FaHeart className='w-10 h-10 '/>:<FaRegHeart className='w-10 h-10 text-gray-700'/>}
           </Link>
           <Link
             to="/profile"
             className="text-white hover:bg-gray-800 p-4 hover:rounded md:block hidden"
-            onClick={setprofile}
+            onClick={()=>dispatch(profile())}
           >
             {nav==="profile"?<FaRegUser className='w-10 h-10 '/>:<FaUser className='w-10 h-10 text-gray-700'/>}
           </Link>
