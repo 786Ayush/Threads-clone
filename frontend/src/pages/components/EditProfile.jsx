@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import pic from "../assests/profile.jpg";
+import pic from "../../assests/profile.jpg";
 import { Link } from "react-router-dom";
 const EditProfile = () => {
   const [name, setName] = useState("");

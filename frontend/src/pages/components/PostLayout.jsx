@@ -8,7 +8,7 @@ const PostLayout = (props) => {
   const { firstName, icon, content, contentType, replies, likes } = props.data;
 
   return (
-    <div className="max-w-md mx-auto  rounded-xl overflow-hidden shadow-md text-white ">
+    <div className="w-full mx-auto  rounded-xl overflow-hidden shadow-md text-white ">
       <div className="flex justify-between items-center p-4  text-white">
         <div className="flex items-center">
           <img
@@ -35,21 +35,19 @@ const PostLayout = (props) => {
       </div>
       &nbsp;&nbsp;
       <div className="flex items-center space-x-1 ">
-          <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
-            <img src={heart} alt="like" width="20" height="20" />
-            
-          </button>
-          <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
-          <img src={comment} alt="like" width="20" height="20"/>
-          </button>
-          <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
-          <img src={repost} alt="like" width="20" height="20"/>
-          </button>
-          <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
-          <img src={share} alt="like" width="20" height="20"/>
-          </button>
-        </div>
-      
+        <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
+          <img src={heart} alt="like" width="20" height="20" />
+        </button>
+        <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
+          <img src={comment} alt="like" width="20" height="20" />
+        </button>
+        <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
+          <img src={repost} alt="like" width="20" height="20" />
+        </button>
+        <button className="flex items-center space-x-1 hover:bg-gray-800 p-2 hover:rounded-full">
+          <img src={share} alt="like" width="20" height="20" />
+        </button>
+      </div>
       <div className="flex  p-4  text-gray-500">
         <div className="flex items-center">
           <span>{replies}</span>&nbsp; replies

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import icon from "../assests/icon.svg";
-import menu from "../assests/menu.svg";
+import icon from "../../assests/icon.svg";
+import menu from "../../assests/menu.svg";
 import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
