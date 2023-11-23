@@ -2,13 +2,6 @@
 import { Link } from 'react-router-dom';
 import React from "react";
 import icon from "../../assests/icon.svg";
-import home from "../../assests/home.svg";
-import heart from "../../assests/heartb.svg";
-import search from "../../assests/searchb.svg";
-import user from "../../assests/user.svg";
-import barb from "../../assests/barsb.svg";
-import bar from "../../assests/bar.svg";
-import create from "../../assests/createb.svg";
 import { useState } from "react";
 import { GoHome } from "react-icons/go";
 import { IoSearch } from "react-icons/io5";
@@ -17,6 +10,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
+import { createStore } from 'redux';
+
 
 const Navbar = () => {
   const [nav,setnav] = useState("Home");
