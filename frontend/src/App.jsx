@@ -6,6 +6,9 @@ import Navbar from "./pages/components/Navbar";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/components/EditProfile";
 import Home from "./pages/Home";
+import Notification from "./pages/components/Notification";
+import Search from "./pages/components/Search";
+import Create from "./pages/components/Create";
 
 // Usage
 
@@ -30,6 +33,18 @@ const router = createBrowserRouter([
     path: "/editprofile",
     element: <EditProfile></EditProfile>,
   },
+  {
+    path:"/notification",
+    element:<Notification/>
+  }
+  ,{
+    path:"/search",
+    element:<Search/>
+  }
+  ,{
+    path:"/create",
+    element:<Create/>
+  }
 ]);
 function App() {
   return (
