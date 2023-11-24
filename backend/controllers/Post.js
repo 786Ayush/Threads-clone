@@ -1,8 +1,8 @@
 const Post = require("../models/Post");
-
+const User = require("../models/User");
 exports.getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find({});
+    const posts = await Post.find({}).sort({ createdAt: -1 });
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -23,7 +23,8 @@ exports.getPostById = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   const { content, imageUrl, author } = req.body;
-  const newPost = new Post({ title, content, imageUrl, author: authorId });
+
+  const newPost = new Post({ content, imageUrl, author: author });
 
   try {
     const savedPost = await newPost.save();
@@ -57,6 +58,51 @@ exports.deletePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
     res.json({ message: "Post deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.updatePostLikes = async (req, res) => {
+  const { postId } = req.params;
+  const { action, username } = req.body;
+
+  try {
+    let updatedPost;
+
+    // Find the post by ID
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    // Find the user by username
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Perform action based on 'action' provided in the request body
+    if (action === "like") {
+      // Check if the user already liked the post
+      const alreadyLiked = post.likes.some((like) => like.equals(user._id));
+
+      if (alreadyLiked) {
+        return res.status(400).json({ message: "User already liked the post" });
+      }
+
+      // Add user ID to the likes array
+      post.likes.push(user._id);
+      updatedPost = await post.save();
+    } else if (action === "unlike") {
+      // Remove user ID from the likes array
+      post.likes = post.likes.filter((like) => !like.equals(user._id));
+      updatedPost = await post.save();
+    } else {
+      return res.status(400).json({ message: "Invalid action" });
+    }
+
+    res.json(updatedPost);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

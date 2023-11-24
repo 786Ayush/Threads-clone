@@ -7,5 +7,6 @@ router.get("/:id", PostController.getPostById);
 router.post("/", PostController.createPost);
 router.put("/:id", PostController.updatePost);
 router.delete("/:id", PostController.deletePost);
+router.post("/:postId/likes", PostController.updatePostLikes); // Route for updating post likes
 
 module.exports = router;

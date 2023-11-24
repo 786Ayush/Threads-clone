@@ -11,8 +11,7 @@ const commentSchema = new mongoose.Schema({
     required: true,
   },
   author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference to the User model
+    type: String,
     required: true,
   },
   createdAt: {
