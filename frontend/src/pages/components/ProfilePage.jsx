@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import icon from "../../assests/icon.svg";
 import menu from "../../assests/menu.svg";
 import { Link } from "react-router-dom";
+import Feeds from "./Feeds";
 
 const ProfilePage = () => {
 
@@ -43,13 +44,16 @@ const ProfilePage = () => {
         </div>
         <div className="flex ">
           <Link
-            className="mx-auto justify-center flex rounded-[10px] md:mt-28 mt-10 bg-black border w-[95%]  hover:bg-white hover:text-black text-white px-4 py-2"
+            className="mx-auto justify-center flex rounded  bg-black border border-gray-800 w-[95%]  hover:bg-white hover:text-black text-white px-4 py-2"
             to="/editprofile"
           >
             Edit Profile
           </Link>
         </div>
       </header>
+      <h1 className="text-white flex w-full justify-center">Threads</h1>
+      <hr />
+      <Feeds/>
     </div>
   );
 };

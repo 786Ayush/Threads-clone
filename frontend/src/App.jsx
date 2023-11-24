@@ -35,15 +35,15 @@ const router = createBrowserRouter([
   },
   {
     path:"/notification",
-    element:<Notification/>
+    element:<Home/>
   }
   ,{
     path:"/search",
-    element:<Search/>
+    element:<Home/>
   }
   ,{
     path:"/create",
-    element:<Create/>
+    element:<Home/>
   }
 ]);
 function App() {

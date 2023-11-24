@@ -1,17 +1,32 @@
-import React from 'react'
-import Feeds from './Feeds'
-import Navbar from './Navbar'
+import React from "react";
+import Feeds from "./Feeds";
+import Navbar from "./Navbar";
+import { useState } from "react";
+import Createbar from "./Createbar";
 const Create = () => {
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
+
   return (
-    <div>
-      <Navbar />
-      <div className="md:grid md:grid-cols-3">
-        <div></div>
-        <Feeds />
-        <div></div>
+    <div >
+      <div className="container mx-auto mt-8" >
+
+        {/* New Thread Pop-up */}
+        <Createbar  />
+
+        {/* Rest of your application content */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Create
+export default Create;

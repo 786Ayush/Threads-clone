@@ -11,6 +11,10 @@ import Notification from "./components/Notification";
 
 const Home = () => {
   const nav=useSelector((state)=>state.menu);
+
+  
+
+
   return (
     
     <div>
@@ -24,7 +28,8 @@ const Home = () => {
           nav==='search'?
           <Search/>:
           nav==='notification'?
-          <Notification/>:
+          <Notification/>
+:
           <Create/>
         }
         <div></div>

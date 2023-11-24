@@ -25,11 +25,11 @@ const Search = () => {
   };
 
   return (
-    <>
-      <div>
-        <Navbar />
-        <div className="md:grid md:grid-cols-3">
-          <div></div>
+    
+      
+        
+        <div className="">
+          {/* <div></div> */}
           
           <div className="flex flex-col">
           <SearchBar />
@@ -55,10 +55,10 @@ const Search = () => {
           </div>
           </div>
           
-          <div></div>
+          {/* <div></div> */}
         </div>
-      </div>
-    </>
+    
+    
   );
 };
 
