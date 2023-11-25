@@ -1,4 +1,5 @@
 const User = require("../models/User"); // Adjust the path as needed
+const jwt = require("jsonwebtoken");
 
 // Controller functions
 exports.getAllUsers = async (req, res) => {
@@ -22,17 +23,7 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-exports.createUser = async (req, res) => {
-  const { username, password } = req.body;
-  const newUser = new User({ username, password });
 
-  try {
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
 
 exports.updateUser = async (req, res) => {
   try {
