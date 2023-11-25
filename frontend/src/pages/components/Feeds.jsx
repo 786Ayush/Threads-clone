@@ -1,5 +1,6 @@
 import React from "react";
 import PostLayout from "./PostLayout";
+import { Link } from "react-router-dom";
 
 const Feeds = () => {
   const textPost = {
@@ -31,7 +32,9 @@ const Feeds = () => {
   };
   return (
     <div className="grid grid-cols-1">
+      <Link to="/post/id:">
       <PostLayout data={textPost} />
+      </Link>
       <PostLayout data={photoPost} />
       <PostLayout data={videoPost} />
     </div>

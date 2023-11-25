@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Notification from "./pages/components/Notification";
 import Search from "./pages/components/Search";
 import Create from "./pages/components/Create";
+import PostComment from "./pages/components/PostComment";
 
 // Usage
 
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
   ,{
     path:"/create",
     element:<Home/>
+  }
+  ,
+  {
+    path:"/post/id:",
+    element:<PostComment/>
   }
 ]);
 function App() {

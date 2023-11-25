@@ -107,12 +107,19 @@ const Createbar = ({ onClose }) => {
         </div>
         {/* Post Button */}
         <div className="w-full flex justify-end">
-          <button
+          {isOpen==true?<button
             className="bg-white text-inherit text-lg px-4 py-2 rounded-full"
             onClick={handlePost}
           >
             Post
-          </button>
+          </button>:
+          
+          <button
+            className="bg-white text-inherit text-lg px-4 py-2 rounded-full"
+            onClick={handlePost}
+          >
+            Posted
+          </button>}
         </div>
       </div>
     </div>
