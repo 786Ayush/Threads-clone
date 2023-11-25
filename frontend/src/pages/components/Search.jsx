@@ -28,7 +28,7 @@ const Search = () => {
     
       
         
-        <div className="">
+        <div className="mt-5">
           {/* <div></div> */}
           
           <div className="flex flex-col">

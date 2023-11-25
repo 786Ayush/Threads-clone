@@ -15,14 +15,7 @@ const ProfilePage = () => {
   return (
     <div>
       {/* Show images only for lower screen sizes */}
-      <div className="flex justify-between items-center md:hidden px-4 py-2">
-        <img src={icon} alt="" className="mx-auto w-16 h-14" />
-        <img
-          src={menu}
-          alt=""
-          className="w-10 cursor-pointer h-10 filter invert absolute top-0 right-0 mr-4 mt-4"
-        />
-      </div>
+      
 
       <header className="bg-black text-white py-8">
         <div className="container mx-auto px-4 flex items-center justify-between">
