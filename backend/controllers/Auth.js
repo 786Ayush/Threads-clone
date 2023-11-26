@@ -18,7 +18,7 @@ exports.createUser = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
-  
+
   try {
     // Check if the user exists in the database
     const user = await User.findOne({ username });
@@ -40,5 +40,20 @@ exports.login = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+exports.checkUser = async (req, res) => {
+  try {
+    const token = req.get("Authorization").split("Bearer ")[1];
+    var decoded = jwt.verify(token, "shhhhh");
+    if (decoded.username) {
+      const user = await User.findOne({ username }).select("-password");
+      res.status(201).json(user);
+    } else {
+      res.status(401).json("Unauthorized");
+    }
+  } catch (error) {
+    res.status(401).json("Unauthorized");
   }
 };

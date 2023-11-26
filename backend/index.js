@@ -12,7 +12,10 @@ const app = express();
 // Middlewares
 const Auth = (req, res, next) => {
   try {
+// <<<<<<< HEAD
     const token=req.get("Authorization").split("Bearer ")[1];
+// =======
+    
     var decoded = jwt.verify(token, "shhhhh");
     if (decoded.username) {
       next();
