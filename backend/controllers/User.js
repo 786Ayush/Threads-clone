@@ -23,8 +23,6 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-
-
 exports.updateUser = async (req, res) => {
   try {
     const updatedUserData = req.body; // Get the updated data from req.body
@@ -33,7 +31,7 @@ exports.updateUser = async (req, res) => {
       req.params.id,
       { $set: updatedUserData },
       { new: true }
-    );
+    ).select("-password");
 
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
