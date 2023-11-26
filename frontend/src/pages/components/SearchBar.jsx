@@ -29,7 +29,7 @@ const SearchBar = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
-        className="flex-1 px-4 py-3 border-null rounded-l focus:outline-none bg-gray-900 text-white"
+        className="flex-1 px-4 py-3 border-null rounded-l focus:outline-none bg-bgColor text-white"
       />
     </div>
   );

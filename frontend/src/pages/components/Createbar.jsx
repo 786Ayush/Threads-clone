@@ -59,7 +59,7 @@ const Createbar = ({ onClose }) => {
       <h2 className="text-xl font-bold text-white justify-center m-auto w-full flex">
         New Thread
       </h2>
-      <div className="popup p-8 bg-zinc-950 border-2 border-gray-800 rounded-md shadow-md">
+      <div className="popup p-8 bg-bgColor border-2 border-gray-800 rounded-md shadow-md">
         <div className="flex items-center mb-4">
           {/* Photo/Icon */}
           <img
