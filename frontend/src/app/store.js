@@ -1,8 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import menuReducer from "../redux/slice";
+import userReducer from "../features/user/userSlice";
+import feedsReducer from "../features/feeds/feedsSlice";
+
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    menu: menuReducer,
+    user: userReducer,
+    feeds: feedsReducer,
+    
   },
 });

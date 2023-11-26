@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import pic from "../../assests/profile.jpg";
+// import pic from "../../assests/profile.jpg";
 import { Link } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserData,editProfileAsync } from "../userSlice";
+import { token } from "../userSlice";
+
 const EditProfile = () => {
+  const userToken = useSelector(token);
+  const userData = useSelector(selectUserData);
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
+  const pic=userData.imageURL===""?"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d364921d-105f-4998-a93f-b7aeb2ca8e68/df88ssd-1bdcaeb2-0202-4f7c-9b07-0cdebb64cc90.jpg/v1/fill/w_894,h_894,q_70,strp/zoro_icon_by_lucaesposito06_df88ssd-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTYzMiIsInBhdGgiOiJcL2ZcL2QzNjQ5MjFkLTEwNWYtNDk5OC1hOTNmLWI3YWViMmNhOGU2OFwvZGY4OHNzZC0xYmRjYWViMi0wMjAyLTRmN2MtOWIwNy0wY2RlYmI2NGNjOTAuanBnIiwid2lkdGgiOiI8PTE2MzIifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.WFpjXupIOFWcCHxMEDSD8UHFMrmZJcP2MS5x6IbKxAM":userData.imageURL;
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -22,7 +30,25 @@ const EditProfile = () => {
   const handlePrivateChange = (e) => {
     setIsPrivate(e.target.checked);
   };
-
+  let selectedFile;
+  const handleImageChange = (e) => {
+    // Handle the selected image file here
+    selectedFile = e.target.files[0];
+    // You can perform additional logic, such as uploading the image to a server or updating state
+  };
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("name", name);
+    formdata.append("bio", bio);
+    formdata.append("id", userData._id);
+    formdata.append("image", selectedFile);
+    dispatch(editProfileAsync({formdata,token:userToken}));
+    console.log({ name, bio, selectedFile });
+  };
+  // const data = useSelector(selecteditProfile);
+  // console.log(data);
   return (
     <div className="mb-0 scroll-none">
       <div className="sticky md:hidden top-0 bg-bgColor py-4">
@@ -42,13 +68,35 @@ const EditProfile = () => {
               <label className="block mb-1">Name:</label>
               <input
                 type="text"
-                value={name}
+                value={ name}
                 onChange={handleNameChange}
-                className="border-b border-white bg-transparent text-white w-full py-1"
+                className="border-b  bg-transparent text-white w-full py-1"
               />
-            </div>
-            <div>
-              <img src={pic} alt="Profile" className="w-16 h-16 rounded-full" />
+            </div>{" "}
+            <div className="relative">
+              <label htmlFor="profileImage" className="cursor-pointer relative">
+                <img
+                  src={pic}
+                  alt="Profile"
+                  className="w-16 h-16 rounded-full"
+                />
+                <input
+                  type="file"
+                  id="profileImage"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleImageChange}
+                />
+                <div
+                  className="absolute bottom-0 right-0 p-1 bg-gray-50 text-zinc-400 rounded-full cursor-pointer"
+                  onClick={() => {
+                    // Handle the click event for the plus icon
+                    console.log("Add image clicked");
+                  }}
+                >
+                  <FaPlus />
+                </div>
+              </label>
             </div>
           </div>
           <div className="mb-4">
@@ -72,8 +120,11 @@ const EditProfile = () => {
             </div>
           </div>
           <Link to="/profile">
-            <button className="bg-white hidden md:block text-black w-full px-4 py-2 rounded-md">
-              Done
+            <button
+              className="bg-white hidden md:block text-black w-full px-4 py-2 rounded-md"
+              onClick={handleSubmit}
+            >
+              Submit
             </button>
           </Link>
         </div>

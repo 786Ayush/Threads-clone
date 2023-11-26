@@ -14,7 +14,7 @@ import { home, notification, profile, search, create } from "../../redux/slice";
 
 const Navbarmobile = () => {
   const dispatch = useDispatch();
-  const nav = useSelector((state) => state.menu);
+  const nav = useSelector((state) => state.menu.menu);
   // Function to toggle the visibility of the dropdown
   
   return (

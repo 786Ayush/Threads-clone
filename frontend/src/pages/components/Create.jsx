@@ -1,5 +1,5 @@
 import React from "react";
-import Feeds from "./Feeds";
+import Feeds from "../../features/feeds/Feeds";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import Createbar from "./Createbar";
