@@ -1,11 +1,11 @@
 import bg from "../../../assests/loginbackground.png";
 import icon from "../../../assests/icon.svg";
 import { Link, Navigate } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginAsync, checkUserAsync, selectUserData } from "../userSlice";
 export function Login() {
-  const userData= useSelector(selectUserData);
+  const userData = useSelector(selectUserData);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,29 +14,46 @@ export function Login() {
     e.preventDefault();
     console.log({ userName, password });
 
-    dispatch(LoginAsync({
-      username:userName,
-      password:password
-    }));
+    dispatch(
+      LoginAsync({
+        username: userName,
+        password: password,
+      })
+    );
   };
 
   // -----------------------------------------------------
   // Retrieve the token from localStorage
-  const storedToken = localStorage.getItem('authToken');
-  
+  const storedToken = localStorage.getItem("authToken");
+
   if (storedToken) {
       // Token exists in localStorage, you can use it for authentication or other purposes
-      
+
       dispatch(checkUserAsync(storedToken));
   } else {
       // Token doesn't exist in localStorage
       console.log('No token found');
   }
-  
+  // useEffect(() => {
+  //   const storedToken = localStorage.getItem("authToken");
+  //   if (storedToken) {
+  //     dispatch(checkUserAsync(storedToken)).then(() => {
+  //       if (userData !== "Unauthorized") {
+  //         // Redirect when the user is authenticated
+  //         <Navigate to="/" replace={true}></Navigate>;
+  //       }
+  //     });
+  //   } else {
+  //     console.log("No token found");
+  //   }
+  // }, [dispatch, userData]);
+
   // color: #1E1E1E
   return (
     <>
-      {userData && <Navigate to="/" replace={true}></Navigate>}
+      {userData != "Unauthorized" && (
+        <Navigate to="/" replace={true}></Navigate>
+      )}
       <div>
         <img src={bg} alt="" className="absolute  hidden md:block w-full" />
         <div className="min-h-screen bg-black flex justify-center items-center z-10 relative bg-transparent">

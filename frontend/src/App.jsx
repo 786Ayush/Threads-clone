@@ -5,13 +5,19 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import EditProfile from "./features/user/components/EditProfile";
 import Home from "./pages/Home";
 import PostComment from "./pages/components/PostComment";
+import Protected from "./features/user/components/Protected";
+import UserProfilepage from "./pages/components/UserProfilepage";
 
 // Usage
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <Protected>
+        <Home />
+      </Protected>
+    ),
   },
   {
     path: "/login",
@@ -23,29 +29,56 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <Home/>,
+    element: (
+      <Protected>
+        <Home />,
+      </Protected>
+    ),
   },
   {
     path: "/editprofile",
-    element: <EditProfile></EditProfile>,
+    element: (
+      <Protected>
+        <EditProfile></EditProfile>
+      </Protected>
+    ),
   },
   {
-    path:"/notification",
-    element:<Home/>
-  }
-  ,{
-    path:"/search",
-    element:<Home/>
-  }
-  ,{
-    path:"/create",
-    element:<Home/>
-  }
-  ,
+    path: "/notification",
+    element: (
+      <Protected>
+        <Home />
+      </Protected>
+    ),
+  },
   {
-    path:"/post/id:",
-    element:<PostComment/>
-  }
+    path: "/search",
+    element: (
+      <Protected>
+        <Home />
+      </Protected>
+    ),
+  },
+  {
+    path: "/create",
+    element: (
+      <Protected>
+        <Home />
+      </Protected>
+    ),
+  },
+  {
+    path: "/post/id:",
+    element: (
+      <Protected>
+        <PostComment />
+      </Protected>
+    ),
+  },
+  {
+    path: "/userprofile",
+    element:<UserProfilepage/>
+  },
 ]);
 function App() {
   return (

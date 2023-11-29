@@ -17,8 +17,8 @@ export const incrementAsync = createAsyncThunk(
 
 export const editProfileAsync = createAsyncThunk(
   "user/editProfile",
-  async (userData) => {
-    const response = await editProfile(userData);
+  async ({userData,token,id}) => {
+    const response = await editProfile({userData,token,id});
     return response.data;
   }
 );
@@ -104,14 +104,14 @@ export const userSlice = createSlice({
 
 export const { increment, decrement, incrementByAmount } = userSlice.actions;
 
-export const selectCount = (state) => state.counter.value;
+// export const selectCount = (state) => state.counter.value;
 export const selectUserData = (state) => state.user.userData;
 export const token = (state) => state.user.token;
-export const incrementIfOdd = (amount) => (dispatch, getState) => {
-  const currentValue = selectCount(getState());
-  if (currentValue % 2 === 1) {
-    dispatch(incrementByAmount(amount));
-  }
-};
+// export const incrementIfOdd = (amount) => (dispatch, getState) => {
+//   const currentValue = selectCount(getState());
+//   if (currentValue % 2 === 1) {
+//     dispatch(incrementByAmount(amount));
+//   }
+// };
 
 export default userSlice.reducer;

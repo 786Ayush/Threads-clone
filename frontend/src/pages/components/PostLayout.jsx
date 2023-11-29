@@ -5,7 +5,14 @@ import repost from "../../assests/repostw.svg";
 import comment from "../../assests/commentw.svg";
 
 const PostLayout = (props) => {
-  const { firstName, icon, content, contentType, replies, likes } = props.data;
+  const {   replies, likes } = props.data;
+  console.log(props.data)
+  const imageUrl= props.data.imageUrl!=null?"http://localhost:8080/"+props.data.imageUrl:null;
+  const videoUrl= props.data.videoUrl!=null?"http://localhost:8080/"+props.data.videoUrl:null;
+  const firstName=props.data.authorName;
+  const icon="http://localhost:8080/"+props.data.icon;
+  const content= props.data.content;
+  console.log(imageUrl,videoUrl)
 
   return (
     <div className="w-full mx-auto  rounded-xl overflow-hidden shadow-md text-white ">
@@ -23,12 +30,12 @@ const PostLayout = (props) => {
       <div className="p-4 border-l-2 border-gray-600">
         <p className="text-white">{content}</p>
 
-        {contentType === "photo" && (
-          <img src={content} alt="post-photo" className="rounded-lg mt-4 " />
+        {imageUrl!==null && (
+          <img src={imageUrl} alt="post-photo" className="rounded-lg mt-4 " />
         )}
-        {contentType === "video" && (
-          <video controls className="rounded-lg mt-4">
-            <source src={content} type="video/mp4" />
+        {videoUrl!==null && (
+          <video controls loop className="rounded-lg mt-4">
+            <source src={videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         )}

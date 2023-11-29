@@ -1,4 +1,4 @@
-const User = require("../models/User"); // Adjust the path as needed
+const {User} = require("../models/User"); // Adjust the path as needed
 const jwt = require("jsonwebtoken");
 
 // Controller functions
@@ -25,10 +25,18 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
+    console.log(req);
+    const userId = req.params.id;
     const updatedUserData = req.body; // Get the updated data from req.body
 
+    // Check if a file was uploaded
+    if (req.file) {
+      // Update the user's imageURL with the uploaded file name or URL
+      updatedUserData.imageURL = "/" + req.file.filename;
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
+      userId,
       { $set: updatedUserData },
       { new: true }
     ).select("-password");
@@ -42,6 +50,7 @@ exports.updateUser = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
 
 exports.deleteUser = async (req, res) => {
   try {

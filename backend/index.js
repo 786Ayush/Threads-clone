@@ -10,22 +10,22 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 // Middlewares
+
 const Auth = (req, res, next) => {
   try {
-// <<<<<<< HEAD
-    const token=req.get("Authorization").split("Bearer ")[1];
-// =======
-    
+    const token = req.get("Authorization").split("Bearer ")[1];
+
     var decoded = jwt.verify(token, "shhhhh");
     if (decoded.username) {
       next();
     } else {
-      res.status(401).json("Unauthorized");
+      res.sendStatus(401);
     }
   } catch (error) {
-    res.status(401).json("Unauthorized");
+    res.sendStatus(401);
   }
 };
+app.use("/", express.static("uploads"));
 
 app.use(cors());
 app.use(express.json());
@@ -45,8 +45,15 @@ main().catch((error) => console.log(error));
 // `mongodb+srv://rishi:rishi2002@cluster0.ualyzwa.mongodb.net/ecommerce`
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/socialtest");
-  console.log("DB Connected");
+  try {
+    await mongoose.connect("mongodb://127.0.0.1:27017/socialtest", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("DB Connected");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+  }
 }
 
 // Server Listening

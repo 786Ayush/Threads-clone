@@ -3,26 +3,27 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserData,editProfileAsync } from "../userSlice";
+import { selectUserData, editProfileAsync } from "../userSlice";
 import { token } from "../userSlice";
 
 const EditProfile = () => {
   const userToken = useSelector(token);
   const userData = useSelector(selectUserData);
   const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
-  const pic=userData.imageURL===""?"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d364921d-105f-4998-a93f-b7aeb2ca8e68/df88ssd-1bdcaeb2-0202-4f7c-9b07-0cdebb64cc90.jpg/v1/fill/w_894,h_894,q_70,strp/zoro_icon_by_lucaesposito06_df88ssd-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTYzMiIsInBhdGgiOiJcL2ZcL2QzNjQ5MjFkLTEwNWYtNDk5OC1hOTNmLWI3YWViMmNhOGU2OFwvZGY4OHNzZC0xYmRjYWViMi0wMjAyLTRmN2MtOWIwNy0wY2RlYmI2NGNjOTAuanBnIiwid2lkdGgiOiI8PTE2MzIifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.WFpjXupIOFWcCHxMEDSD8UHFMrmZJcP2MS5x6IbKxAM":userData.imageURL;
+
+
+  const pic =
+    userData.imageURL === ""
+      ? "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d364921d-105f-4998-a93f-b7aeb2ca8e68/df88ssd-1bdcaeb2-0202-4f7c-9b07-0cdebb64cc90.jpg/v1/fill/w_894,h_894,q_70,strp/zoro_icon_by_lucaesposito06_df88ssd-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTYzMiIsInBhdGgiOiJcL2ZcL2QzNjQ5MjFkLTEwNWYtNDk5OC1hOTNmLWI3YWViMmNhOGU2OFwvZGY4OHNzZC0xYmRjYWViMi0wMjAyLTRmN2MtOWIwNy0wY2RlYmI2NGNjOTAuanBnIiwid2lkdGgiOiI8PTE2MzIifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.WFpjXupIOFWcCHxMEDSD8UHFMrmZJcP2MS5x6IbKxAM"
+      : "http://localhost:8080/"+userData.imageURL;
 
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
+  
   const handleBioChange = (e) => {
     setBio(e.target.value);
   };
@@ -36,19 +37,25 @@ const EditProfile = () => {
     selectedFile = e.target.files[0];
     // You can perform additional logic, such as uploading the image to a server or updating state
   };
+
+
+
+
+
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     // e.preventDefault();
     const formdata = new FormData();
-    formdata.append("name", name);
-    formdata.append("bio", bio);
-    formdata.append("id", userData._id);
-    formdata.append("image", selectedFile);
-    dispatch(editProfileAsync({formdata,token:userToken}));
-    console.log({ name, bio, selectedFile });
+    formdata.append('name', name);
+    formdata.append('bio', bio);
+    // formdata.append("id", userData._id);
+    formdata.append('image', selectedFile)
+    dispatch(editProfileAsync({ userData:formdata, token: userToken ,id: userData._id}));
+    console.log({ name, bio, selectedFile },userData._id);
   };
-  // const data = useSelector(selecteditProfile);
-  // console.log(data);
+  
+
+
   return (
     <div className="mb-0 scroll-none">
       <div className="sticky md:hidden top-0 bg-bgColor py-4">
@@ -68,7 +75,7 @@ const EditProfile = () => {
               <label className="block mb-1">Name:</label>
               <input
                 type="text"
-                value={ name}
+                value={name}
                 onChange={handleNameChange}
                 className="border-b  bg-transparent text-white w-full py-1"
               />

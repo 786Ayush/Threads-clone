@@ -46,11 +46,11 @@ const Feeds = () => {
   console.log({ posts });
   return (
     <div className="grid grid-cols-1">
-      <Link to="/post/id:">
+      {/* <Link to="/post/id:">
         <PostLayout data={textPost} />
       </Link>
       <PostLayout data={photoPost} />
-      <PostLayout data={videoPost} />
+      <PostLayout data={videoPost} /> */}
       {Array.isArray(posts)?
         posts.map((post) => (
           <Link to={`/post/${post._id}`} key={post._id}>

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFeeds } from './feedsAPI';
+import { getFeeds,createFeed } from './feedsAPI';
 
 const initialState = {
   value: 0,
@@ -19,6 +19,13 @@ export const getFeedsAsync = createAsyncThunk(
   async (token) => {
     const response = await getFeeds(token);
     // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+export const createPostAsync = createAsyncThunk(
+  "feeds/create",
+  async ({userData,token}) => {
+    const response = await createFeed({userData,token});
     return response.data;
   }
 );
@@ -52,6 +59,13 @@ export const feedsSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(getFeedsAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.posts = action.payload;
+      })
+      .addCase(createPostAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(createPostAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.posts = action.payload;
       });

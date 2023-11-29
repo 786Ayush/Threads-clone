@@ -1,4 +1,4 @@
-const Post = require("../models/Post");
+const { Post } = require("../models/Post");
 const User = require("../models/User");
 exports.getAllPosts = async (req, res) => {
   try {
@@ -22,9 +22,25 @@ exports.getPostById = async (req, res) => {
 };
 
 exports.createPost = async (req, res) => {
-  const { content, imageUrl, author } = req.body;
+  const { content, author ,icon,authorName} = req.body;
 
-  const newPost = new Post({ content, imageUrl, author: author });
+  let imageUrl = null;
+  let videoUrl = null;
+
+  // Check if there is an uploaded file
+  if (req.file) {
+    const fileType = req.file.mimetype.split("/")[0]; // 'image' or 'video'
+
+    if (fileType === "image") {
+      imageUrl = "/" + req.file.path;
+      imageUrl = imageUrl.split("/uploads")[1];
+    } else if (fileType === "video") {
+      videoUrl = "/" + req.file.path;
+      videoUrl = videoUrl.split("/uploads")[1];
+    }
+  }
+
+  const newPost = new Post({ content, imageUrl, videoUrl, author,icon,authorName });
 
   try {
     const savedPost = await newPost.save();

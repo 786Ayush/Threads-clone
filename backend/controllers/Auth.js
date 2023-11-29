@@ -1,4 +1,4 @@
-const User = require("../models/User"); // Adjust the path as needed
+const {User} = require("../models/User"); // Adjust the path as needed
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -47,8 +47,10 @@ exports.checkUser = async (req, res) => {
   try {
     const token = req.get("Authorization").split("Bearer ")[1];
     var decoded = jwt.verify(token, "shhhhh");
+    console.log(decoded.username)
     if (decoded.username) {
-      const user = await User.findOne({ username }).select("-password");
+      const username=decoded.username
+      const user = await User.findOne( {username:username} ).select("-password");
       res.status(201).json(user);
     } else {
       res.status(401).json("Unauthorized");
