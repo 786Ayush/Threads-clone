@@ -68,7 +68,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/post/id:",
+    path: "/posts/:id",
     element: (
       <Protected>
         <PostComment />
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/userprofile",
+    path: "/userprofile/:id",
     element:<UserProfilepage/>
   },
 ]);

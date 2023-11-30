@@ -34,21 +34,7 @@ export function Login() {
       // Token doesn't exist in localStorage
       console.log('No token found');
   }
-  // useEffect(() => {
-  //   const storedToken = localStorage.getItem("authToken");
-  //   if (storedToken) {
-  //     dispatch(checkUserAsync(storedToken)).then(() => {
-  //       if (userData !== "Unauthorized") {
-  //         // Redirect when the user is authenticated
-  //         <Navigate to="/" replace={true}></Navigate>;
-  //       }
-  //     });
-  //   } else {
-  //     console.log("No token found");
-  //   }
-  // }, [dispatch, userData]);
-
-  // color: #1E1E1E
+  
   return (
     <>
       {userData != "Unauthorized" && (

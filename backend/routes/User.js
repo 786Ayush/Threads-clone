@@ -11,5 +11,6 @@ router.get("/:userId/followers", UserController.getAllFollowers);
 router.get("/:userId/followings", UserController.getAllFollowings);
 router.post("/:userId/followers/add", UserController.addFollower); // Route to add follower
 router.post("/:userId/followings/add", UserController.addFollowing); // Route to add following
+router.post("/search", UserController.getUserByUsername);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const { Post } = require("../models/Post");
-const User = require("../models/User");
+const {User} = require("../models/User");
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find({}).sort({ createdAt: -1 });
@@ -82,7 +82,7 @@ exports.deletePost = async (req, res) => {
 exports.updatePostLikes = async (req, res) => {
   const { postId } = req.params;
   const { action, username } = req.body;
-
+  console.log(action)
   try {
     let updatedPost;
 
@@ -93,7 +93,7 @@ exports.updatePostLikes = async (req, res) => {
     }
 
     // Find the user by username
-    const user = await User.findOne({ username });
+    const user = await User.findOne( {username} );
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -106,7 +106,7 @@ exports.updatePostLikes = async (req, res) => {
       if (alreadyLiked) {
         return res.status(400).json({ message: "User already liked the post" });
       }
-
+    
       // Add user ID to the likes array
       post.likes.push(user._id);
       updatedPost = await post.save();

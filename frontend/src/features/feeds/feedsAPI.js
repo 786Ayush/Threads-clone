@@ -37,3 +37,32 @@ export function createFeed({ userData, token }) {
     }
   });
 }
+
+export function updateLike({ username, action, token, id }) {
+  console.log({ username, action, token, id });
+  return new Promise(async (resolve) => {
+    try {
+      const response = await fetch(`http://localhost:8080/posts/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          action,
+          username,
+        }),
+      });
+      if (response.ok) {
+        // Handle successful response
+        const data = await response.json();
+        console.log("Response from server:", data);
+      } else {
+        // Handle error response
+        console.error("Error :", response.statusText);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  });
+}

@@ -65,3 +65,33 @@ export function CheckUser(token) {
     resolve({ data });
   });
 }
+
+export function getUserbyId({token,id}) {
+  console.log({token,id});
+  return new Promise(async (resolve) => {
+    const response = await fetch(`http://localhost:8080/users/${id}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+export function getUserByUsername({username,token}) {
+  return new Promise(async (resolve) => {
+    console.log({username,token})
+    const response = await fetch("http://localhost:8080/users/search", {
+      method: "POST",
+      body: JSON.stringify({username}),
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    resolve({ data });
+  });
+}

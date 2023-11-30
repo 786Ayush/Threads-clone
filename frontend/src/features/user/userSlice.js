@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCount,Login,Signup,editProfile, CheckUser } from "./userAPI";
+import { fetchCount,Login,Signup,editProfile, CheckUser, getUserbyId, getUserByUsername } from "./userAPI";
 
 const initialState = {
   value: 0,
   status: "idle",
   userData: null,
-  token: null
+  getuserData:null,
+  token: null,
+  seachdata:[]
 };
 export const incrementAsync = createAsyncThunk(
   "counter/fetchCount",
@@ -45,6 +47,21 @@ export const checkUserAsync = createAsyncThunk(
   }
 );
 
+export const getUserbyIdAsync = createAsyncThunk(
+  "user/getbyid",
+  async (token) => {
+    const response = await getUserbyId(token);
+    return response.data;
+  }
+);
+
+export const getUserbyuserNameAsync = createAsyncThunk(
+  "user/getbyusername",
+  async ({username,token}) => {
+    const response = await getUserByUsername({username,token});
+    return response.data;
+  }
+);
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -98,20 +115,33 @@ export const userSlice = createSlice({
         state.status = 'idle';
         state.userData = action.payload;
         state.token=state.userData.token;
+      })
+      .addCase(getUserbyIdAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getUserbyIdAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.getuserData = action.payload;
+        
+      })
+      .addCase(getUserbyuserNameAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getUserbyuserNameAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.seachdata = action.payload;
+  
       });
   },
 });
 
 export const { increment, decrement, incrementByAmount } = userSlice.actions;
 
-// export const selectCount = (state) => state.counter.value;
+
 export const selectUserData = (state) => state.user.userData;
 export const token = (state) => state.user.token;
-// export const incrementIfOdd = (amount) => (dispatch, getState) => {
-//   const currentValue = selectCount(getState());
-//   if (currentValue % 2 === 1) {
-//     dispatch(incrementByAmount(amount));
-//   }
-// };
+export const selectgetUserbyid =(state)=>state.user.getuserData
+export const selectSearchData = (state)=>state.user.seachdata
+
 
 export default userSlice.reducer;

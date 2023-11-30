@@ -1,4 +1,4 @@
-const {User} = require("../models/User"); // Adjust the path as needed
+const { User } = require("../models/User"); // Adjust the path as needed
 const jwt = require("jsonwebtoken");
 
 // Controller functions
@@ -20,6 +20,32 @@ exports.getUserById = async (req, res) => {
     res.json(user);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+exports.getUserByUsername = async (req, res) => {
+  try {
+    const username = req.body.username;
+
+    if (!username) {
+      return res
+        .status(400)
+        .json({ message: "Username is required in the query parameters." });
+    }
+
+    const regex = new RegExp(username, "i");
+    const users = await User.find({
+      $or: [{ name: { $regex: regex } }, { username: { $regex: regex } }],
+    });
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
+    }
+
+    res.status(200).json(users);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -50,7 +76,6 @@ exports.updateUser = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-
 
 exports.deleteUser = async (req, res) => {
   try {

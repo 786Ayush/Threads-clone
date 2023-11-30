@@ -47,7 +47,7 @@ exports.checkUser = async (req, res) => {
   try {
     const token = req.get("Authorization").split("Bearer ")[1];
     var decoded = jwt.verify(token, "shhhhh");
-    console.log(decoded.username)
+    // console.log(decoded.username)
     if (decoded.username) {
       const username=decoded.username
       const user = await User.findOne( {username:username} ).select("-password");

@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFeeds,createFeed } from './feedsAPI';
+import { getFeeds,createFeed, updateLike } from './feedsAPI';
 
 const initialState = {
   value: 0,
   status: 'idle',
-  posts: []
+  posts: [],
+  postData:null
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -29,6 +30,14 @@ export const createPostAsync = createAsyncThunk(
     return response.data;
   }
 );
+export const updatelikeAsync = createAsyncThunk(
+  "feeds/like",
+  async ({ username, action, token, id }) => {
+    const response = await updateLike({ username, action, token, id });
+    return response.data;
+  }
+);
+
 
 export const feedsSlice = createSlice({
   name: 'feeds',
@@ -68,6 +77,14 @@ export const feedsSlice = createSlice({
       .addCase(createPostAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.posts = action.payload;
+      })
+      .addCase(updatelikeAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updatelikeAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.postData = action.payload;
+        state.posts = state.posts.map(obj => (obj._id === state.postData._id ? { ...obj, likes: state.postData.likes } : obj));
       });
   },
 });
@@ -78,6 +95,7 @@ export const feedsSlice = createSlice({
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCount = (state) => state.counter.value;
 export const selectFeeds = (state) => state.feeds.posts;
+export const selectlike = (state)=> state.feeds.postData;
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
 
