@@ -7,40 +7,44 @@ import Navbarmobile from "./Navbarmobile";
 // import { GoHome } from "react-icons/go";
 import { IoLogOut } from "react-icons/io5";
 import { Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 
 const Navbar = () => {
   const [lout, slout] = useState(true);
-  const history = useNavigate();
+  
 
   const logout = async () => {
-    slout(!lout);
-    await localStorage.removeItem("authToken");
-    
-    // Navigate to /login
-    if(!lout)
-    {
-      console.log("clicked");
-      return 
+    console.log("Logging out...");
+    slout(false);
+
+    try {
+      await localStorage.removeItem("authToken");
+      console.log("authToken removed successfully");
+    } catch (error) {
+      console.error("Error removing authToken:", error);
     }
+
+    // Navigate to /login
+    console.log("Redirecting to /login");
+    // history("/login");
   };
 
-
-  return (<>
-    {!lout&&<Navigate to="/login"/>}
-    <nav className=" ">
-      <div className="container mx-auto flex justify-center sm:justify-around items-center">
-        <div className="text-white font-bold text-lg ">
-          <img src={icon} alt="icon" width="50" height="45" />
+  return (
+    <>
+      {!lout ? <Navigate to="/login" /> : null}
+      <nav className=" ">
+        <div className="container mx-auto flex justify-around sm:justify-around items-center">
+          <div className="text-white font-bold text-lg ">
+            <img src={icon} alt="icon" width="50" height="45" />
+          </div>
+          <div className="md:block hidden">
+            <Navbarmobile />
+          </div>
+          <div className="text-white text-3xl" onClick={logout}>
+            <IoLogOut />
+          </div>
         </div>
-        <div className="md:block hidden">
-          <Navbarmobile />
-        </div>
-        <div className="text-white" onClick={logout}>
-          <IoLogOut />
-        </div>
-      </div>
-    </nav>
+      </nav>
     </>
   );
 };

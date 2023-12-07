@@ -4,7 +4,7 @@ import NotificationSlice from "./NotificationSlice";
 const Notification = () => {
   const handleAcceptFollow = () => {
     // Handle logic for accepting follow request
-    console.log("Follow request accepted!");
+    // console.log("Follow request accepted!");
   };
   return (
     <div className="container mx-auto mt-8">

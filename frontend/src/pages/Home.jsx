@@ -16,45 +16,34 @@ import {
   selectUserData,
   token,
 } from "../features/user/userSlice";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const usertoken = useSelector(token);
-  // const [userData, setuserData] = useState(null);
+  // const usertoken = useSelector(token);
+
   const nav = useSelector((state) => state.menu.menu);
   const userData = useSelector(selectUserData);
 
-  const storedToken = localStorage.getItem("authToken");
-  
-  console.log(storedToken);
+  // const storedToken = localStorage.getItem("authToken");
+
+  // console.log(storedToken);
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
   useEffect(() => {
-    const fetchData = async () => {
-      if (storedToken !== null) {
-        await dispatch(checkUserAsync(storedToken));
-      } else {
-        localStorage.setItem("authToken", usertoken);
-        console.log("No token found");
-      }
-    };
+    userData &&
+      userData.token !== null &&
+      localStorage.setItem("authToken", userData.token);
+    // move(true);
+  }, [userData]);
 
-    fetchData().then(() => {
-      if (!userData) {
-        navigate("/login", { replace: true });
-      }
-    });
-  }, [dispatch, storedToken, usertoken, navigate]);
-  console.log(userData);
+  
+  // console.log(userData);
 
   const navbarHeight = 60; // Adjust this value based on your actual navbar height
 
   return (
     <>
-      {/* {!userData && <Navigate to="/login" replace={true}></Navigate>} */}
-      {console.log({ userData })}
+      {!userData ? <Navigate to="/login" replace={true}></Navigate> : null}
+      {/* {console.log({ userData })} */}
       <div>
         <div
           style={{ position: "fixed", top: 0, width: "100%", zIndex: 1000 }}

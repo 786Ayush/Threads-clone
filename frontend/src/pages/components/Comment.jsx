@@ -10,7 +10,7 @@ const Comment = ({ userPhoto, userName, comment }) => {
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState(0);
   const [reposts, setReposts] = useState(0);
-
+  const imageUrl="http://localhost:8080/"+userPhoto;
   const handleLike = () => {
     setLikes(!likes);
   };
@@ -24,29 +24,15 @@ const Comment = ({ userPhoto, userName, comment }) => {
   };
 
   return (
-    <div className="comment-section bg-inherit p-4 rounded-md mb-4">
+    <div className="comment-section bg-inherit p-4 rounded-md mb-4 ">
       <div className="flex items-center mb-2">
-        <img src={userPhoto} alt={`${userName}'s profile`} className="w-8 h-8 rounded-full mr-2" />
+        <img src={imageUrl} alt={`${userName}'s profile`} className="w-8 h-8 rounded-full mr-2" />
         <span className=" text-white">{userName}</span>
       </div>
       <div className="ml-8">
-      <p className="text-gray-800 mb-4 text-white">{comment}</p>
-      <div className="flex space-x-4">
-        <button className="text-blue-500" onClick={handleLike}>
-          
-           {likes==0?<FaRegHeart className="text-white"/>:<FaHeart className="text-red-500"/>}
-        </button>
-        <button className="text-blue-500" onClick={handleComment}>
-        <FaRegComment className="text-white "/>
-        </button>
-        <button className="text-blue-500" onClick={handleRepost}>
-          <BiRepost className="text-white text-xl"/>
-        </button>
-        <button className="text-blue-500">
-            <IoIosShareAlt className="text-white text-xl"/>
-        </button>
+      <p className=" mb-4 text-white">{comment}</p>
       </div>
-      </div>
+      <hr/>
     </div>
   );
 };

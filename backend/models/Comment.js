@@ -18,6 +18,9 @@ const commentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  imageUrl: {
+    type: String,
+  },
 });
 
 const Comment = mongoose.model("Comment", commentSchema);

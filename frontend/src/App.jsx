@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import EditProfile from "./features/user/components/EditProfile";
 import Home from "./pages/Home";
-import PostComment from "./pages/components/PostComment";
+import PostComment from "./features/comments/PostComment";
 import Protected from "./features/user/components/Protected";
 import UserProfilepage from "./pages/components/UserProfilepage";
 

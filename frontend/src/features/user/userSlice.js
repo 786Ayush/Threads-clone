@@ -1,13 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCount,Login,Signup,editProfile, CheckUser, getUserbyId, getUserByUsername } from "./userAPI";
+import {
+  fetchCount,
+  Login,
+  Signup,
+  editProfile,
+  CheckUser,
+  getUserbyId,
+  getUserByUsername,
+} from "./userAPI";
 
 const initialState = {
   value: 0,
   status: "idle",
   userData: null,
-  getuserData:null,
+  getuserData: null,
   token: null,
-  seachdata:[]
+  seachdata: [],
 };
 export const incrementAsync = createAsyncThunk(
   "counter/fetchCount",
@@ -19,33 +27,38 @@ export const incrementAsync = createAsyncThunk(
 
 export const editProfileAsync = createAsyncThunk(
   "user/editProfile",
-  async ({userData,token,id}) => {
-    const response = await editProfile({userData,token,id});
+  async ({ userData, token, id }) => {
+    const response = await editProfile({ userData, token, id });
     return response.data;
   }
 );
-export const SignupAsync = createAsyncThunk(
-  "user/signup",
-  async (userData) => {
-    const response = await Signup(userData);
-    return response.data;
-  }
-);
+export const SignupAsync = createAsyncThunk("user/signup", async (userData) => {
+  const response = await Signup(userData);
+  return response.data;
+});
 export const LoginAsync = createAsyncThunk(
   "user/login",
-  async (userData) => {
-    const response = await Login(userData);
-    
-    return response.data;
+  async ({ username, password }) => {
+    try {
+      const response = await Login({ username, password });
+
+      if (response.data.token) {
+        // Successful authentication
+        return response.data;
+      } else {
+        // Authentication failed
+        return { error: "Authentication failed" };
+      }
+    } catch (error) {
+      // Handle API request errors
+      return { error: "API request failed" };
+    }
   }
 );
-export const checkUserAsync = createAsyncThunk(
-  "user/check",
-  async (token) => {
-    const response = await CheckUser(token);
-    return response.data;
-  }
-);
+export const checkUserAsync = createAsyncThunk("user/check", async (token) => {
+  const response = await CheckUser(token);
+  return response.data;
+});
 
 export const getUserbyIdAsync = createAsyncThunk(
   "user/getbyid",
@@ -57,8 +70,8 @@ export const getUserbyIdAsync = createAsyncThunk(
 
 export const getUserbyuserNameAsync = createAsyncThunk(
   "user/getbyusername",
-  async ({username,token}) => {
-    const response = await getUserByUsername({username,token});
+  async ({ username, token }) => {
+    const response = await getUserByUsername({ username, token });
     return response.data;
   }
 );
@@ -91,7 +104,7 @@ export const userSlice = createSlice({
       .addCase(SignupAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.userData = action.payload;
-        state.token=state.userData.token;
+        state.token = state.userData.token;
       })
       .addCase(LoginAsync.pending, (state) => {
         state.status = "loading";
@@ -99,49 +112,48 @@ export const userSlice = createSlice({
       .addCase(LoginAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.userData = action.payload;
-        state.token=state.userData.token;
+        console.log(action.payload);
+        console.log(state.userData);
+        state.token = state.userData.token ? state.userData.token : null;
+        console.log(state.token);
       })
       .addCase(editProfileAsync.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(editProfileAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = "idle";
         state.userData = action.payload;
       })
       .addCase(checkUserAsync.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(checkUserAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = "idle";
         state.userData = action.payload;
-        state.token=state.userData.token;
+        state.token = state.userData.token;
       })
       .addCase(getUserbyIdAsync.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(getUserbyIdAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = "idle";
         state.getuserData = action.payload;
-        
       })
       .addCase(getUserbyuserNameAsync.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(getUserbyuserNameAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = "idle";
         state.seachdata = action.payload;
-  
       });
   },
 });
 
 export const { increment, decrement, incrementByAmount } = userSlice.actions;
 
-
 export const selectUserData = (state) => state.user.userData;
 export const token = (state) => state.user.token;
-export const selectgetUserbyid =(state)=>state.user.getuserData
-export const selectSearchData = (state)=>state.user.seachdata
-
+export const selectgetUserbyid = (state) => state.user.getuserData;
+export const selectSearchData = (state) => state.user.seachdata;
 
 export default userSlice.reducer;

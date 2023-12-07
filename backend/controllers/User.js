@@ -51,7 +51,7 @@ exports.getUserByUsername = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    console.log(req);
+    // console.log(req);
     const userId = req.params.id;
     const updatedUserData = req.body; // Get the updated data from req.body
 

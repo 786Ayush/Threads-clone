@@ -1,12 +1,17 @@
 const Comment = require("../models/Comment");
-const Post = require("../models/Post");
+const { Post } = require("../models/Post");
 
 exports.createComment = async (req, res) => {
-  const { content, username } = req.body;
+  const { content, username, imageUrl } = req.body;
   const { postId } = req.params;
-  const newComment = new Comment({ content, post: postId, author: username });
-
+  // console.log(content, username, postId);
   try {
+    const newComment = new Comment({
+      content,
+      post: postId,
+      author: username,
+      imageUrl: imageUrl,
+    });
     const savedComment = await newComment.save();
     // Update the comments array in the corresponding Post document
     const updatedPost = await Post.findByIdAndUpdate(
@@ -46,6 +51,18 @@ exports.deleteComment = async (req, res) => {
     }
 
     res.json({ message: "Comment deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+exports.getAllCommentsForPost = async (req, res) => {
+  const postId = req.params.postId; // Get postId from the request body
+  // console.log(postId);
+  try {
+    // Retrieve all comments for the specified post
+    const comments = await Comment.find({ post: postId });
+
+    res.json(comments);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 import { GoHome } from "react-icons/go";
 import { IoSearch } from "react-icons/io5";
@@ -16,7 +16,7 @@ const Navbarmobile = () => {
   const dispatch = useDispatch();
   const nav = useSelector((state) => state.menu.menu);
   // Function to toggle the visibility of the dropdown
-  
+
   return (
     <div className="flex space-x-4  ">
       <Link
@@ -26,7 +26,7 @@ const Navbarmobile = () => {
           dispatch(home());
         }}
       >
-        {console.log(nav)}
+        {/* {console.log(nav)} */}
         {nav === "home" ? (
           <GoHome className=" w-7 h-7 " />
         ) : (
@@ -35,7 +35,7 @@ const Navbarmobile = () => {
       </Link>
       <Link
         to="/search"
-        className="text-white hover:bg-zinc-800 p-2 sm:p-6 sm:p-0 hover:rounded "
+        className="text-white hover:bg-zinc-800 p-2 sm:p-6  hover:rounded "
         onClick={() => dispatch(search())}
       >
         {nav === "search" ? (

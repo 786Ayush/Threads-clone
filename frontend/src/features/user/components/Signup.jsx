@@ -17,7 +17,7 @@ export function Signup() {
     e.preventDefault();
     if (password !== confirmPass) {
       seter("Password didn't match with confirm password");
-      console.log({ er });
+      // console.log({ er });
     } else {
       dispatch(
         SignupAsync({
@@ -25,25 +25,20 @@ export function Signup() {
           password: password,
         })
       );
-
-      console.log({
-        userName,
-        password,
-      });
     }
   };
 
-  const storedToken = localStorage.getItem('authToken');
-  
+  const storedToken = localStorage.getItem("authToken");
+
   if (storedToken) {
-      // Token exists in localStorage, you can use it for authentication or other purposes
-      
-      dispatch(checkUserAsync(storedToken));
+    // Token exists in localStorage, you can use it for authentication or other purposes
+
+    dispatch(checkUserAsync(storedToken));
   } else {
-      // Token doesn't exist in localStorage
-      console.log('No token found');
+    // Token doesn't exist in localStorage
+    // console.log("No token found");
   }
-  
+
   // color: #1E1E1E
   return (
     <>

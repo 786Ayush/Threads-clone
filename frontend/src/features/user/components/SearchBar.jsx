@@ -14,7 +14,7 @@ const SearchBar = ({ onSearch }) => {
   const dispatch = useDispatch();
   const handleSearch = () => {
     dispatch(getUserbyuserNameAsync({username:searchTerm,token:userToken}));
-    console.log("clicked");
+    // console.log("clicked");
   };
 
   const handleKeyPress = (event) => {

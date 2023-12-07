@@ -51,7 +51,7 @@ const EditProfile = () => {
     // formdata.append("id", userData._id);
     formdata.append('image', selectedFile)
     dispatch(editProfileAsync({ userData:formdata, token: userToken ,id: userData._id}));
-    console.log({ name, bio, selectedFile },userData._id);
+    // console.log({ name, bio, selectedFile },userData._id);
   };
   
 
@@ -98,7 +98,7 @@ const EditProfile = () => {
                   className="absolute bottom-0 right-0 p-1 bg-gray-50 text-zinc-400 rounded-full cursor-pointer"
                   onClick={() => {
                     // Handle the click event for the plus icon
-                    console.log("Add image clicked");
+                    // console.log("Add image clicked");
                   }}
                 >
                   <FaPlus />

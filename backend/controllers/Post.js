@@ -11,15 +11,36 @@ exports.getAllPosts = async (req, res) => {
 
 exports.getPostById = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
-    if (!post) {
-      return res.status(404).json({ message: "Post not found" });
+    const Id = req.params.id;
+    const posts = await Post.find({ _id: Id });
+
+    if (!posts || posts.length === 0) {
+      return res.status(404).json({ message: "No posts found for the specified author ID" });
     }
-    res.json(post);
+
+    res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+exports.getPostByUserId = async (req, res) => {
+  try {
+    const Id = req.params.id;
+    // console.log(Id);
+    const posts = await Post.find({ author: Id });
+
+    if (!posts || posts.length === 0) {
+      return res.status(404).json({ message: "No posts found for the specified author ID" });
+    }
+
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+
 
 exports.createPost = async (req, res) => {
   const { content, author ,icon,authorName} = req.body;
@@ -82,7 +103,7 @@ exports.deletePost = async (req, res) => {
 exports.updatePostLikes = async (req, res) => {
   const { postId } = req.params;
   const { action, username } = req.body;
-  console.log(action)
+  // console.log(action)
   try {
     let updatedPost;
 

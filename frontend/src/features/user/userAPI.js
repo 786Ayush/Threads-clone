@@ -19,17 +19,17 @@ export function Signup(userData) {
   });
 }
 
-export function Login(userData) {
+export function Login({ username, password }) {
   return new Promise(async (resolve) => {
     const response = await fetch("http://localhost:8080/auth/login", {
       method: "POST",
-      body: JSON.stringify(userData),
+      body: JSON.stringify({ username: username, password: password }),
       headers: {
         "content-type": "application/json",
       },
     });
     const data = await response.json();
-    console.log({ data });
+    // console.log({ data });
     resolve({ data });
   });
 }
@@ -66,8 +66,8 @@ export function CheckUser(token) {
   });
 }
 
-export function getUserbyId({token,id}) {
-  console.log({token,id});
+export function getUserbyId({ token, id }) {
+  // console.log({token,id});
   return new Promise(async (resolve) => {
     const response = await fetch(`http://localhost:8080/users/${id}`, {
       method: "GET",
@@ -80,12 +80,12 @@ export function getUserbyId({token,id}) {
     resolve({ data });
   });
 }
-export function getUserByUsername({username,token}) {
+export function getUserByUsername({ username, token }) {
   return new Promise(async (resolve) => {
-    console.log({username,token})
+    // console.log({username,token})
     const response = await fetch("http://localhost:8080/users/search", {
       method: "POST",
-      body: JSON.stringify({username}),
+      body: JSON.stringify({ username }),
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,

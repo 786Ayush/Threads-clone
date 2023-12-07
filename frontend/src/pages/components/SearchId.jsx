@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
 
-const SearchId = ({ name, iconName, onFollowClick, isFollowing }) => {
+const SearchId = ({user}) => {
+  const name=user.name;
+  const iconName="http://localhost:8080/"+user.imageURL;
+  const onFollowClick =()=>{};
+  const [isFollowing,setIsFollowing]= useState(false);
+
   return (
     <div className="flex flex-col">
     <div className="bg-black p-4 rounded shadow-md flex items-center justify-between">

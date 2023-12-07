@@ -18,11 +18,13 @@ const UserProfilepage = (props) => {
     dispatch(getUserbyIdAsync({ token: storedToken, id: userId }));
   }, []);
   const userData = useSelector(selectgetUserbyid);
-  console.log(userData);
-  const profilePicture = userData?"http://localhost:8080/" + userData.imageURL:null;
-  const name = userData?userData.name:"name";
-  const userName = userData?"@" + userData.username:"username";
-  const bio = userData?userData.bio:"bio";
+  // console.log(userData);
+  const profilePicture = userData
+    ? "http://localhost:8080/" + userData.imageURL
+    : null;
+  const name = userData ? userData.name : "name";
+  const userName = userData ? "@" + userData.username : "username";
+  const bio = userData ? userData.bio : "bio";
 
   return (
     <>
@@ -33,9 +35,11 @@ const UserProfilepage = (props) => {
           {/* Show images only for lower screen sizes */}
           <header className=" text-white py-8">
             <div className="text-white p-2 mb-3">
-              <button>
-                <IoMdArrowRoundBack className="text-xl " />
-              </button>
+              <Link to="/">
+                <button>
+                  <IoMdArrowRoundBack className="text-xl " />
+                </button>
+              </Link>
             </div>
             <div className="container mx-auto px-4 mb-3 flex items-center justify-between">
               {/* Left side: Name, username */}
