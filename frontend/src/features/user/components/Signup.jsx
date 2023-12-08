@@ -1,7 +1,7 @@
 import bg from "../../../assests/loginbackground.png";
 import icon from "../../../assests/icon.svg";
 import { Link, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SignupAsync, checkUserAsync, selectUserData } from "../userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,6 +11,7 @@ export function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [er, seter] = useState("");
+  const [stay, move] = useState(false);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
@@ -27,22 +28,29 @@ export function Signup() {
       );
     }
   };
+  useEffect(() => {
+    if (userData && userData.token) move(true);
+  }, [userData]);
 
-  const storedToken = localStorage.getItem("authToken");
+  useEffect(() => {
+    const storedToken = localStorage.getItem("authToken");
 
-  if (storedToken) {
-    // Token exists in localStorage, you can use it for authentication or other purposes
+    if (storedToken) {
+      // Token exists in localStorage, you can use it for authentication or other purposes
 
-    dispatch(checkUserAsync(storedToken));
-  } else {
-    // Token doesn't exist in localStorage
-    // console.log("No token found");
-  }
+      dispatch(checkUserAsync(storedToken));
+      move(true);
+    } else {
+      move(false);
+      // Token doesn't exist in localStorage
+      // console.log("No token found");
+    }
+  }, []);
 
   // color: #1E1E1E
   return (
     <>
-      {userData && <Navigate to="/" replace={true}></Navigate>}
+      {userData && stay && <Navigate to="/" replace={true}></Navigate>}
       <div>
         <img
           src={bg}

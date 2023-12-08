@@ -8,6 +8,7 @@ const postRoutes = require("./routes/Post");
 const authRoutes = require("./routes/Auth");
 const jwt = require("jsonwebtoken");
 
+
 const app = express();
 // Middlewares
 
