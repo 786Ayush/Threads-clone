@@ -18,7 +18,9 @@ export function Signup() {
     e.preventDefault();
     if (password !== confirmPass) {
       seter("Password didn't match with confirm password");
-      // console.log({ er });
+    } else if (!/^[a-zA-Z0-9]+$/.test(userName)) {
+      seter("Username should not have special characters or spaces");
+      return;
     } else {
       dispatch(
         SignupAsync({
@@ -77,7 +79,9 @@ export function Signup() {
                   type="text"
                   id="username"
                   name="username"
-                  className="bg-inputColor text-white text-sm py-3 w-full border-none rounded-md px-3 mt-1 focus:outline-white "
+                  pattern="^[a-zA-Z0-9]+$"
+                  title="Username should not have special characters or spaces"
+                  className="bg-inputColor text-white text-sm py-3 w-full border-none rounded-md px-3 mt-1 focus:outline-white"
                   placeholder="Username"
                   onChange={(e) => {
                     setuserName(e.target.value);

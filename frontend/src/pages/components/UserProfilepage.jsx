@@ -1,23 +1,28 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Navbar from "./Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getUserbyIdAsync,
+  selectUserData,
   selectgetUserbyid,
 } from "../../features/user/userSlice";
+import FeedsbyUserid from "../../features/feeds/FeedsbyUserid";
 
 const UserProfilepage = (props) => {
   const storedToken = localStorage.getItem("authToken");
   const pathArray = window.location.pathname.split("/");
   const userId = pathArray[pathArray.length - 1];
-
+  const { id } = useParams();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUserbyIdAsync({ token: storedToken, id: userId }));
-  }, []);
   const userData = useSelector(selectgetUserbyid);
+  const currUser = useSelector(selectUserData);
+
+  useEffect(() => {
+    dispatch(getUserbyIdAsync({ token: storedToken, id: id }));
+  }, [dispatch]);
+
   // console.log(userData);
   const profilePicture = userData
     ? "http://localhost:8080/" + userData.imageURL
@@ -73,8 +78,9 @@ const UserProfilepage = (props) => {
               </Link>
             </div>
           </header>
-
+          <h1 className="text-white flex w-full justify-center">Threads</h1>
           <hr />
+          <FeedsbyUserid userid={userData?._id} />
         </div>
         <div className=""></div>
       </div>

@@ -15,13 +15,11 @@ const PostLayout = (props) => {
   const usertoken = useSelector(token);
   const userData = useSelector(selectUserData);
 
-
-  
   const [like, setLike] = useState(false);
   const [writeComment, setWriteComment] = useState(false);
   const { comments, likes } = props.data;
-  const [nlike, setnLike] = useState( likes.length );
-  const [ncomment, setncomment] = useState( comments.length );
+  const [nlike, setnLike] = useState(likes.length);
+  const [ncomment, setncomment] = useState(comments.length);
   // console.log(props.data);
 
   const imageUrl =
@@ -78,19 +76,21 @@ const PostLayout = (props) => {
         </div>
         <div className="dots">...</div>
       </div>
-      <div className="p-4 border-l-2 border-gray-600">
-        <p className="text-white">{content}</p>
+      <Link to={`/posts/${props.data._id}`}>
+        <div className="p-4 border-l-2 border-gray-600">
+          <p className="text-white">{content}</p>
 
-        {imageUrl !== null && (
-          <img src={imageUrl} alt="post-photo" className="rounded-lg mt-4 " />
-        )}
-        {videoUrl !== null && (
-          <video controls loop className="rounded-lg mt-4">
-            <source src={videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        )}
-      </div>
+          {imageUrl !== null && (
+            <img src={imageUrl} alt="post-photo" className="rounded-lg mt-4 " />
+          )}
+          {videoUrl !== null && (
+            <video controls loop className="rounded-lg mt-4">
+              <source src={videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
+        </div>
+      </Link>
       &nbsp;&nbsp;
       <div className="flex items-center space-x-1 ">
         <button
