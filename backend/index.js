@@ -7,7 +7,7 @@ const commentRoutes = require("./routes/Comment");
 const postRoutes = require("./routes/Post");
 const authRoutes = require("./routes/Auth");
 const jwt = require("jsonwebtoken");
-
+require("dotenv").config();
 
 const app = express();
 // Middlewares
@@ -16,7 +16,7 @@ const Auth = (req, res, next) => {
   try {
     const token = req.get("Authorization").split("Bearer ")[1];
 
-    var decoded = jwt.verify(token, "shhhhh");
+    var decoded = jwt.verify(token, process.env.JWT_SECRET);
     if (decoded.username) {
       next();
     } else {
@@ -47,7 +47,7 @@ main().catch((error) => console.log(error));
 
 async function main() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/socialtest", {
+    await mongoose.connect(process.env.MONGO_DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -58,6 +58,6 @@ async function main() {
 }
 
 // Server Listening
-app.listen(8080, () => {
-  console.log("Server Listening at PORT 8080");
+app.listen(process.env.PORT, () => {
+  console.log(`Server Listening at PORT ${process.env.PORT}`);
 });

@@ -7,11 +7,9 @@ import {
   LoginAsync,
   checkUserAsync,
   selectUserData,
-  token,
 } from "../userSlice";
 export function Login() {
   const userData = useSelector(selectUserData);
-  const userToken = useSelector(token);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [stay, move] = useState(false);
@@ -28,12 +26,9 @@ export function Login() {
         password: password,
       })
     );
-
-    // console.log(userData);
-    // console.log(userToken);
   };
   useEffect(() => {
-    if (userData && userData.token) move(true);
+    if (userData && userData?.token) move(true);
   }, [userData]);
 
   // Retrieve the token from localStorage

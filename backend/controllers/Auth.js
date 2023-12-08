@@ -1,12 +1,13 @@
 const { User } = require("../models/User"); // Adjust the path as needed
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 exports.createUser = async (req, res) => {
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
   const newUser = new User({ username, password: hashedPassword });
-  const token = jwt.sign({ username: username }, "shhhhh");
+  const token = jwt.sign({ username: username }, process.env.JWT_SECRET);
   newUser.token = token;
   try {
     const savedUser = await newUser.save();
@@ -33,7 +34,7 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Invalid username or password" });
     }
 
-    const token = jwt.sign({ username: username }, "shhhhh");
+    const token = jwt.sign({ username: username }, process.env.JWT_SECRET);
     user.token = token;
     const savedUser = await user.save();
     return res.status(200).json(savedUser);
@@ -46,7 +47,7 @@ exports.login = async (req, res) => {
 exports.checkUser = async (req, res) => {
   try {
     const token = req.get("Authorization").split("Bearer ")[1];
-    var decoded = jwt.verify(token, "shhhhh");
+    var decoded = jwt.verify(token, process.env.JWT_SECRET);
     // console.log(decoded.username)
     if (decoded.username) {
       const username = decoded.username;

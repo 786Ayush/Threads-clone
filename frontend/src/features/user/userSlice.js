@@ -104,7 +104,7 @@ export const userSlice = createSlice({
       .addCase(SignupAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.userData = action.payload;
-        state.token = state.userData.token;
+        state.token = state.userData?.token;
       })
       .addCase(LoginAsync.pending, (state) => {
         state.status = "loading";
@@ -130,7 +130,7 @@ export const userSlice = createSlice({
       .addCase(checkUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.userData = action.payload;
-        state.token = state.userData.token;
+        state.token = state.userData?.token;
       })
       .addCase(getUserbyIdAsync.pending, (state) => {
         state.status = "loading";

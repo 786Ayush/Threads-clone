@@ -31,7 +31,7 @@ export function Signup() {
     }
   };
   useEffect(() => {
-    if (userData && userData.token) move(true);
+    if (userData && userData?.token) move(true);
   }, [userData]);
 
   useEffect(() => {
