@@ -95,3 +95,73 @@ export function getUserByUsername({ username, token }) {
     resolve({ data });
   });
 }
+
+export function addFollowing({ id, username, token }) {
+  return new Promise(async (resolve) => {
+    const response = await fetch(
+      `http://localhost:8080/users/${id}/followings/add`,
+      {
+        method: "POST",
+        body: JSON.stringify({ username }),
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
+export function addFollower({ id, username, token }) {
+  return new Promise(async (resolve) => {
+    const response = await fetch(
+      `http://localhost:8080/users/${id}/followers/add`,
+      {
+        method: "POST",
+        body: JSON.stringify({ username }),
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
+export function getFollowers({ id, token }) {
+  return new Promise(async (resolve) => {
+    const response = await fetch(
+      `http://localhost:8080/users/${id}/followers`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
+export function getFollowings({ id, token }) {
+  return new Promise(async (resolve) => {
+    const response = await fetch(
+      `http://localhost:8080/users/${id}/followings`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    resolve({ data });
+  });
+}

@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import PostComment from "./features/comments/PostComment";
 import Protected from "./features/user/components/Protected";
 import UserProfilepage from "./pages/components/UserProfilepage";
+import Followers from "./pages/components/Followers";
+import Followings from "./pages/components/Followings";
 
 // Usage
 
@@ -77,7 +79,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/userprofile/:id",
-    element:<UserProfilepage/>
+    element: (
+      <Protected>
+        <UserProfilepage />
+      </Protected>
+    ),
+  },
+  {
+    path: "/followers",
+    element: (
+      <Protected>
+        <Followers />
+      </Protected>
+    ),
+  },
+  {
+    path: "/followings",
+    element: (
+      <Protected>
+        <Followings />
+      </Protected>
+    ),
   },
 ]);
 function App() {

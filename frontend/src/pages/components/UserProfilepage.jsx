@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Navbar from "./Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addFollowerAsync,
+  addFollowingAsync,
   getUserbyIdAsync,
   selectUserData,
   selectgetUserbyid,
@@ -18,11 +20,21 @@ const UserProfilepage = (props) => {
   const dispatch = useDispatch();
   const userData = useSelector(selectgetUserbyid);
   const currUser = useSelector(selectUserData);
-
+  const [follow, setFollow] = useState("Follow");
+  const [showBtn, setShowBtn] = useState(true);
   useEffect(() => {
     dispatch(getUserbyIdAsync({ token: storedToken, id: id }));
   }, [dispatch]);
-
+  useEffect(() => {
+    for (let i = 0; i < currUser?.following.length; i++) {
+      if (currUser?.following[i] === userData) {
+        setFollow("Following");
+      }
+    }
+    if (currUser?._id === userData?._id) {
+      setShowBtn(false);
+    }
+  }, [currUser]);
   // console.log(userData);
   const profilePicture = userData
     ? "http://localhost:8080/" + userData.imageURL
@@ -30,7 +42,23 @@ const UserProfilepage = (props) => {
   const name = userData ? userData.name : "name";
   const userName = userData ? "@" + userData.username : "username";
   const bio = userData ? userData.bio : "bio";
-
+  const handleFollow = () => {
+    dispatch(
+      addFollowingAsync({
+        id: currUser._id,
+        token: currUser.token,
+        username: currUser.username,
+      })
+    );
+    dispatch(
+      addFollowerAsync({
+        id: userData._id,
+        token: currUser.token,
+        username: currUser.username,
+      })
+    );
+    setFollow("Following");
+  };
   return (
     <>
       <Navbar />
@@ -63,24 +91,27 @@ const UserProfilepage = (props) => {
                 />
               </div>
             </div>
-            <div className="flex ">
-              <Link
-                className="mx-auto justify-center flex rounded  bg-black border border-gray-800   hover:bg-white hover:text-black text-white px-10 py-2"
-                to="/editprofile"
-              >
-                Following
-              </Link>
-              <Link
-                className="mx-auto justify-center flex rounded  bg-black border border-gray-800   hover:bg-white hover:text-black text-white px-10 py-2"
-                to="/editprofile"
-              >
-                Mention
-              </Link>
-            </div>
+            {showBtn && (
+              <div className="flex ">
+                <button
+                  className="mx-auto justify-center flex rounded  bg-black border border-gray-800   hover:bg-white hover:text-black text-white px-10 py-2"
+                  to="/editprofile"
+                  onClick={handleFollow}
+                >
+                  {follow}
+                </button>
+                <button
+                  className="mx-auto justify-center flex rounded  bg-black border border-gray-800   hover:bg-white hover:text-black text-white px-10 py-2"
+                  to="/editprofile"
+                >
+                  Mention
+                </button>
+              </div>
+            )}
           </header>
           <h1 className="text-white flex w-full justify-center">Threads</h1>
           <hr />
-          <FeedsbyUserid userid={userData?._id} />
+          <FeedsbyUserid userid={id} />
         </div>
         <div className=""></div>
       </div>

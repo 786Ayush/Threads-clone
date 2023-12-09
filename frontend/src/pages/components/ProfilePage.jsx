@@ -1,18 +1,27 @@
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getFollowersAsync,
+  getFollowingsAsync,
+  selectUserData,
+} from "../../features/user/userSlice";
 import { useEffect } from "react";
 import FeedsbyUserid from "../../features/feeds/FeedsbyUserid";
 
 const ProfilePage = () => {
   const userData = useSelector(selectUserData);
   // const usertoken= useSelector(token)
+  const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [userHandle, setHandle] = useState("");
   const [bio, setbio] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
+  useEffect(() => {
+    dispatch(getFollowersAsync({ id: userData._id, token: userData.token }));
+    dispatch(getFollowingsAsync({ id: userData._id, token: userData.token }));
+  }, [dispatch, userData]);
   useEffect(() => {
     setUserName(userData.name);
     setHandle("@" + userData.username);
@@ -31,6 +40,14 @@ const ProfilePage = () => {
             <div className="my-5">
               <p className="text-md">{bio}</p>
             </div>
+            <div className="flex text-sm my-5">
+              <Link to="/followings" className="mr-3">
+                Followings : {userData.following.length}
+              </Link>
+              <Link to="/followers" className="ml-3">
+                Followers : {userData.followers.length}
+              </Link>
+            </div>
           </div>
           <div className="w-16 h-16 rounded-full overflow-hidden">
             <img
@@ -40,6 +57,7 @@ const ProfilePage = () => {
             />
           </div>
         </div>
+
         <div className="flex ">
           <Link
             className="mx-auto justify-center flex rounded  bg-black border border-gray-800 w-[95%]  hover:bg-white hover:text-black text-white px-4 py-2"

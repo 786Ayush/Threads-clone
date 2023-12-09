@@ -8,10 +8,8 @@ import Navbarmobile from "./Navbarmobile";
 import { IoLogOut } from "react-icons/io5";
 import { Navigate } from "react-router-dom";
 
-
 const Navbar = () => {
   const [lout, slout] = useState(true);
-  
 
   const logout = async () => {
     console.log("Logging out...");
@@ -35,7 +33,13 @@ const Navbar = () => {
       <nav className=" ">
         <div className="container mx-auto flex justify-around sm:justify-around items-center">
           <div className="text-white font-bold text-lg ">
-            <img src={icon} alt="icon" width="50" height="45" />
+            <img
+              src={icon}
+              alt="icon"
+              width="50"
+              height="45"
+              className="cursor-pointer"
+            />
           </div>
           <div className="md:block hidden">
             <Navbarmobile />

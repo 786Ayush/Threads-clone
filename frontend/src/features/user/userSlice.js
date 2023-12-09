@@ -7,6 +7,10 @@ import {
   CheckUser,
   getUserbyId,
   getUserByUsername,
+  addFollowing,
+  addFollower,
+  getFollowings,
+  getFollowers,
 } from "./userAPI";
 
 const initialState = {
@@ -16,6 +20,8 @@ const initialState = {
   getuserData: null,
   token: null,
   seachdata: [],
+  followers: [],
+  followings: [],
 };
 export const incrementAsync = createAsyncThunk(
   "counter/fetchCount",
@@ -75,6 +81,39 @@ export const getUserbyuserNameAsync = createAsyncThunk(
     return response.data;
   }
 );
+
+export const addFollowingAsync = createAsyncThunk(
+  "user/addFollowings",
+  async ({ id, username, token }) => {
+    const response = await addFollowing({ id, username, token });
+    return response.data;
+  }
+);
+
+export const addFollowerAsync = createAsyncThunk(
+  "user/addFollower",
+  async ({ id, username, token }) => {
+    const response = await addFollower({ id, username, token });
+    return response.data;
+  }
+);
+
+export const getFollowersAsync = createAsyncThunk(
+  "user/getFollowers",
+  async ({ id, token }) => {
+    const response = await getFollowers({ id, token });
+    return response.data;
+  }
+);
+
+export const getFollowingsAsync = createAsyncThunk(
+  "user/getFollowings",
+  async ({ id, token }) => {
+    const response = await getFollowings({ id, token });
+    return response.data;
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -145,6 +184,34 @@ export const userSlice = createSlice({
       .addCase(getUserbyuserNameAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.seachdata = action.payload;
+      })
+      .addCase(addFollowingAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addFollowingAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.userData.following.push(state.getuserData._id);
+      })
+      .addCase(addFollowerAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addFollowerAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.getuserData.followers.push(state.userData._id);
+      })
+      .addCase(getFollowersAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getFollowersAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.followers = action.payload;
+      })
+      .addCase(getFollowingsAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getFollowingsAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.followings = action.payload;
       });
   },
 });
@@ -152,6 +219,8 @@ export const userSlice = createSlice({
 export const { increment, decrement, incrementByAmount } = userSlice.actions;
 
 export const selectUserData = (state) => state.user.userData;
+export const selectFollower = (state) => state.user.followers;
+export const selectFollowings = (state) => state.user.followings;
 export const token = (state) => state.user.token;
 export const selectgetUserbyid = (state) => state.user.getuserData;
 export const selectSearchData = (state) => state.user.seachdata;

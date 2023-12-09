@@ -14,8 +14,8 @@ const Search = () => {
         <SearchBar />
         <div className="flex flex-col">
           {userData.map((user, index) => (
-            <Link to={`/userprofile/${userData._id}`}>
-            <SearchId key={index} user={user} />
+            <Link key={index} to={`/userprofile/${user._id}`}>
+              <SearchId key={index} user={user} />
             </Link>
           ))}
         </div>
