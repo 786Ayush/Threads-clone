@@ -6,6 +6,11 @@ Threads Clone is a social media platform aiming to replicate features for user i
 ## Backend URL
 The base URL for the backend API: `http://localhost:8080/`
 
+## Demo
+
+https://github.com/786Ayush/Threads-clone/assets/59289499/5e20d2a8-7a4d-469c-bb88-7276216d4235
+
+
 ## Technologies Used
 - React.js
 - Express.js
