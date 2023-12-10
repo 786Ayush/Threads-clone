@@ -3,7 +3,7 @@ import { FaUserPlus } from "react-icons/fa";
 
 const SearchId = ({user}) => {
   const name=user.name;
-  const iconName="http://localhost:8080/"+user.imageURL;
+  const iconName=user.imageURL;
   const onFollowClick =()=>{};
   const [isFollowing,setIsFollowing]= useState(false);
 

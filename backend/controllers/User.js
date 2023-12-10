@@ -51,16 +51,8 @@ exports.getUserByUsername = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    // console.log(req);
     const userId = req.params.id;
-    const updatedUserData = req.body; // Get the updated data from req.body
-
-    // Check if a file was uploaded
-    if (req.file) {
-      // Update the user's imageURL with the uploaded file name or URL
-      updatedUserData.imageURL = "/" + req.file.filename;
-    }
-
+    const updatedUserData = req.body;
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $set: updatedUserData },

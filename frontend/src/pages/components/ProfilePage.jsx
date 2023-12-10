@@ -26,7 +26,7 @@ const ProfilePage = () => {
     setUserName(userData.name);
     setHandle("@" + userData.username);
     setbio(userData.bio);
-    setProfilePicture("http://localhost:8080/" + userData.imageURL);
+    setProfilePicture(userData.imageURL);
   }, [userData]);
   return (
     <div>

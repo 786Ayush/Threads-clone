@@ -35,10 +35,7 @@ const UserProfilepage = (props) => {
       setShowBtn(false);
     }
   }, [currUser]);
-  // console.log(userData);
-  const profilePicture = userData
-    ? "http://localhost:8080/" + userData.imageURL
-    : null;
+  const profilePicture = userData ? userData.imageURL : null;
   const name = userData ? userData.name : "name";
   const userName = userData ? "@" + userData.username : "username";
   const bio = userData ? userData.bio : "bio";

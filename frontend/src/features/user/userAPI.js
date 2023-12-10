@@ -36,19 +36,20 @@ export function Login({ username, password }) {
 export function editProfile({ userData, token, id }) {
   return new Promise(async (resolve) => {
     const response = await fetch(`http://localhost:8080/users/${id}`, {
-      method: "PUT",
-      body: userData,
+      method: "PATCH",
+      body: JSON.stringify({
+        name: userData.name,
+        bio: userData.bio,
+        imageURL: userData.imageUrl,
+      }),
+
       headers: {
+        "content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    if (response.ok) {
-      // Handle successful response
-      const data = await response.json();
-    } else {
-      // Handle error response
-      console.error("Error uploading image:", response.statusText);
-    }
+    const data = await response.json();
+    resolve(data);
   });
 }
 

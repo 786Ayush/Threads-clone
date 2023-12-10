@@ -68,8 +68,8 @@ export const checkUserAsync = createAsyncThunk("user/check", async (token) => {
 
 export const getUserbyIdAsync = createAsyncThunk(
   "user/getbyid",
-  async (token) => {
-    const response = await getUserbyId(token);
+  async ({ token, id }) => {
+    const response = await getUserbyId({ token, id });
     return response.data;
   }
 );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import pic from "../../assests/profile.jpg";
+import pic from "../../../assests/profile.jpg";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,16 +11,15 @@ const EditProfile = () => {
   const userData = useSelector(selectUserData);
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
+  const [img, setImg] = useState(pic);
   const [isPrivate, setIsPrivate] = useState(false);
-
-  const pic =
-    userData.imageURL === ""
-      ? "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d364921d-105f-4998-a93f-b7aeb2ca8e68/df88ssd-1bdcaeb2-0202-4f7c-9b07-0cdebb64cc90.jpg/v1/fill/w_894,h_894,q_70,strp/zoro_icon_by_lucaesposito06_df88ssd-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTYzMiIsInBhdGgiOiJcL2ZcL2QzNjQ5MjFkLTEwNWYtNDk5OC1hOTNmLWI3YWViMmNhOGU2OFwvZGY4OHNzZC0xYmRjYWViMi0wMjAyLTRmN2MtOWIwNy0wY2RlYmI2NGNjOTAuanBnIiwid2lkdGgiOiI8PTE2MzIifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.WFpjXupIOFWcCHxMEDSD8UHFMrmZJcP2MS5x6IbKxAM"
-      : "http://localhost:8080/" + userData.imageURL;
   useEffect(() => {
     setName(userData.name);
     setBio(userData.bio);
-  }, []);
+    if (userData.imageUrl) {
+      setImg(userData.imageUrl);
+    }
+  }, [userData]);
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -32,21 +31,29 @@ const EditProfile = () => {
   const handlePrivateChange = (e) => {
     setIsPrivate(e.target.checked);
   };
-  let selectedFile;
   const handleImageChange = (e) => {
-    // Handle the selected image file here
-    selectedFile = e.target.files[0];
-    // You can perform additional logic, such as uploading the image to a server or updating state
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const base64 = e.target.result;
+        setImg(base64);
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    const formdata = new FormData();
-    formdata.append("name", name);
-    formdata.append("bio", bio);
-    formdata.append("image", selectedFile);
+    const data = {
+      name: name,
+      bio: bio,
+      imageUrl: img,
+    };
     dispatch(
       editProfileAsync({
-        userData: formdata,
+        userData: data,
         token: userToken,
         id: userData._id,
       })
@@ -81,7 +88,7 @@ const EditProfile = () => {
             <div className="relative">
               <label htmlFor="profileImage" className="cursor-pointer relative">
                 <img
-                  src={pic}
+                  src={img}
                   alt="Profile"
                   className="w-16 h-16 rounded-full"
                 />
@@ -94,10 +101,7 @@ const EditProfile = () => {
                 />
                 <div
                   className="absolute bottom-0 right-0 p-1 bg-gray-50 text-zinc-400 rounded-full cursor-pointer"
-                  onClick={() => {
-                    // Handle the click event for the plus icon
-                    // console.log("Add image clicked");
-                  }}
+                  onClick={() => {}}
                 >
                   <FaPlus />
                 </div>

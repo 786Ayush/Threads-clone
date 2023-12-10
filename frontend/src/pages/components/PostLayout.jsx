@@ -6,35 +6,31 @@ import comment from "../../assests/commentw.svg";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectlike, updatelikeAsync } from "../../features/feeds/feedsSlice";
-import { selectUserData, token } from "../../features/user/userSlice";
+import {
+  getUserbyIdAsync,
+  selectUserData,
+  selectgetUserbyid,
+  token,
+} from "../../features/user/userSlice";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import PostForm from "../../features/comments/Commenttextbox";
 
 const PostLayout = (props) => {
+  const dispatch = useDispatch();
   const usertoken = useSelector(token);
   const userData = useSelector(selectUserData);
-
   const [like, setLike] = useState(false);
   const [writeComment, setWriteComment] = useState(false);
   const { comments, likes } = props.data;
   const [nlike, setnLike] = useState(likes.length);
   const [ncomment, setncomment] = useState(comments.length);
-  // console.log(props.data);
-
-  const imageUrl =
-    props.data.imageUrl != null
-      ? "http://localhost:8080/" + props.data.imageUrl
-      : null;
-  const videoUrl =
-    props.data.videoUrl != null
-      ? "http://localhost:8080/" + props.data.videoUrl
-      : null;
+  const imageUrl = props.data.imageUrl != null ? props.data.imageUrl : null;
+  const videoUrl = props.data.videoUrl != null ? props.data.videoUrl : null;
   const firstName = props.data.authorName;
-  const icon = "http://localhost:8080/" + props.data.icon;
+  const icon = props.data.author.imageURL;
   const content = props.data.content;
   const id = props.data.author;
-
   useEffect(() => {
     likes?.map((id) => {
       if (id === userData._id) {
@@ -43,7 +39,6 @@ const PostLayout = (props) => {
       } else setLike(false);
     });
   }, []);
-  const dispatch = useDispatch();
   const handleLike = () => {
     // console.log({ usertoken, userData });
     dispatch(
@@ -56,7 +51,6 @@ const PostLayout = (props) => {
     );
     setLike(!like);
     setnLike(like ? nlike - 1 : nlike + 1);
-    // console.log("liked");
   };
   const handlecomment = () => {
     setWriteComment(!writeComment);

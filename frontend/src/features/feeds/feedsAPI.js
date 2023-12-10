@@ -5,7 +5,7 @@ export function getFeeds(token) {
     const response = await fetch("http://localhost:8080/posts", {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        "content-Type": "application/json",
         Authorization: `Bearer ${token}`,
         // You can add more headers if needed
       },
@@ -22,16 +22,16 @@ export function createFeed({ userData, token }) {
       const response = await fetch("http://localhost:8080/posts", {
         method: "POST",
         headers: {
+          "content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: userData,
+        body: JSON.stringify(userData),
       });
       if (response.ok) {
         // Handle successful response
         const data = await response.json();
-        // console.log("Response from server:", data);
+        resolve(data);
       } else {
-        // Handle error response
         console.error("Error uploading image:", response.statusText);
       }
     } catch (e) {
@@ -60,7 +60,6 @@ export function updateLike({ username, action, token, id }) {
         const data = await response.json();
         // console.log("Response from server:", data);
         resolve({ data });
-      
       } else {
         // Handle error response
         console.error("Error :", response.statusText);
@@ -70,7 +69,7 @@ export function updateLike({ username, action, token, id }) {
     }
   });
 }
-export function getFeedsbyId({token,id}) {
+export function getFeedsbyId({ token, id }) {
   return new Promise(async (resolve) => {
     const response = await fetch(`http://localhost:8080/posts/${id}`, {
       method: "GET",
@@ -85,16 +84,19 @@ export function getFeedsbyId({token,id}) {
   });
 }
 
-export function getFeedsbyUserId({token,id}) {
+export function getFeedsbyUserId({ token, id }) {
   return new Promise(async (resolve) => {
-    const response = await fetch(`http://localhost:8080/posts/userIdpost/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        // You can add more headers if needed
-      },
-    });
+    const response = await fetch(
+      `http://localhost:8080/posts/userIdpost/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          // You can add more headers if needed
+        },
+      }
+    );
     const data = await response.json();
     resolve({ data });
   });
