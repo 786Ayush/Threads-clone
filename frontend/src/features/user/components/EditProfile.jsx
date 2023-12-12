@@ -11,14 +11,14 @@ const EditProfile = () => {
   const userData = useSelector(selectUserData);
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
-  const [img, setImg] = useState(pic);
+  const [img, setImg] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   useEffect(() => {
     setName(userData.name);
     setBio(userData.bio);
-    if (userData.imageUrl) {
-      setImg(userData.imageUrl);
-    }
+    if (!userData.imageUrl) {
+      setImg(pic);
+    } else setImg(userData.imageUrl);
   }, [userData]);
   const handleNameChange = (e) => {
     setName(e.target.value);

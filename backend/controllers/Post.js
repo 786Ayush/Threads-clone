@@ -47,7 +47,6 @@ exports.getPostByUserId = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   const data = req.body;
-  console.log({ data });
   const newPost = new Post({
     content: data.content,
     imageUrl: data.imageUrl,

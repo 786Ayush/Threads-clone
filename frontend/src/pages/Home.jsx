@@ -11,11 +11,7 @@ import Notification from "./components/Notification";
 import Navbarmobile from "./components/Navbarmobile";
 import ProfilePage from "./components/ProfilePage";
 import { Navigate } from "react-router-dom";
-import {
-  checkUserAsync,
-  selectUserData,
-  token,
-} from "../features/user/userSlice";
+import { selectUserData } from "../features/user/userSlice";
 
 const Home = () => {
   // const usertoken = useSelector(token);
@@ -35,7 +31,6 @@ const Home = () => {
     // move(true);
   }, [userData]);
 
-  
   // console.log(userData);
 
   const navbarHeight = 60; // Adjust this value based on your actual navbar height

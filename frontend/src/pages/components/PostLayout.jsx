@@ -25,8 +25,8 @@ const PostLayout = (props) => {
   const { comments, likes } = props.data;
   const [nlike, setnLike] = useState(likes.length);
   const [ncomment, setncomment] = useState(comments.length);
-  const imageUrl = props.data.imageUrl != null ? props.data.imageUrl : null;
-  const videoUrl = props.data.videoUrl != null ? props.data.videoUrl : null;
+  const imageUrl = props.data.imageUrl ? props.data.imageUrl : null;
+  const videoUrl = props.data.videoUrl ? props.data.videoUrl : null;
   const firstName = props.data.authorName;
   const icon = props.data.author.imageURL;
   const content = props.data.content;
@@ -40,7 +40,6 @@ const PostLayout = (props) => {
     });
   }, []);
   const handleLike = () => {
-    // console.log({ usertoken, userData });
     dispatch(
       updatelikeAsync({
         username: userData.username,
@@ -116,7 +115,7 @@ const PostLayout = (props) => {
           <PostForm
             imageUrl={props.data.icon}
             postId={props.data._id}
-            username={props.data.authorName}
+            username={userData.username}
           />
         ) : null}
       </div>

@@ -28,14 +28,13 @@ export function createFeed({ userData, token }) {
         body: JSON.stringify(userData),
       });
       if (response.ok) {
-        // Handle successful response
         const data = await response.json();
-        resolve(data);
+        resolve({ data });
       } else {
         console.error("Error uploading image:", response.statusText);
       }
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
   });
 }
