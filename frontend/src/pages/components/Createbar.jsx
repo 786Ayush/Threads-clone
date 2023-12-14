@@ -26,13 +26,6 @@ const Createbar = ({ onClose }) => {
       icon: userData.imageURL,
       authorName: userName,
     };
-    // const formData = new FormData();
-    // formData.append("content", text);
-    // formData.append("file", selectedFile);
-    // formData.append("author", userData._id);
-    // formData.append("icon", userData.imageURL);
-    // formData.append("authorName", userName);
-    // Close the pop-up after posting
     dispatch(createPostAsync({ userData: data, token: userToken }));
     setIsOpen(false);
     // Trigger the onClose callback (if provided)
@@ -76,7 +69,7 @@ const Createbar = ({ onClose }) => {
 
   return (
     <>
-      {posted && <Navigate to="/home" />}
+      {posted && <Navigate to="/" />}
       <div className={`new-thread-form ${isOpen ? "open" : "closed"}`}>
         <div className="overlay"></div>
         <h2 className="text-xl font-bold text-white justify-center m-auto w-full flex">
