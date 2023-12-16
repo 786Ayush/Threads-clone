@@ -7,13 +7,13 @@ import { Link } from "react-router-dom";
 
 const Search = () => {
   const userData = useSelector(selectSearchData);
-
+  // console.log(userData);
   return (
     <div className="mt-5">
       <div className="flex flex-col">
         <SearchBar />
         <div className="flex flex-col">
-          {userData.map((user, index) => (
+          { !userData.message&&userData.map((user, index) => (
             <Link key={index} to={`/userprofile/${user._id}`}>
               <SearchId key={index} user={user} />
             </Link>

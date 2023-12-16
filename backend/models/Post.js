@@ -1,18 +1,17 @@
 const mongoose = require("mongoose");
-const multer = require("multer")
+const multer = require("multer");
 
 const postSchema = new mongoose.Schema({
   content: {
     type: String,
+  },
+  icon: {
+    type: String,
     required: true,
   },
-  icon:{
-    type:String,
-    required:true,
-  },
-  authorName:{
-    type:String,
-    required:true
+  authorName: {
+    type: String,
+    required: true,
   },
   imageUrl: {
     type: String,
@@ -60,6 +59,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 module.exports = {
-  Post:Post,
-  upload:upload
+  Post: Post,
+  upload: upload,
 };

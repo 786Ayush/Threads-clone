@@ -25,7 +25,13 @@ export function createFeed({ userData, token }) {
           "content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify({
+          content:userData.content,
+          icon:userData.icon,
+          author:userData.author,
+          authorName:userData.authorName,
+          imageUrl:userData.imageUrl
+        }),
       });
       if (response.ok) {
         const data = await response.json();

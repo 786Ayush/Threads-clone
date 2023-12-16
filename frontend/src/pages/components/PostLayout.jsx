@@ -17,6 +17,7 @@ import { FaRegHeart } from "react-icons/fa";
 import PostForm from "../../features/comments/Commenttextbox";
 
 const PostLayout = (props) => {
+  // console.log(props);
   const dispatch = useDispatch();
   const usertoken = useSelector(token);
   const userData = useSelector(selectUserData);
@@ -28,9 +29,10 @@ const PostLayout = (props) => {
   const imageUrl = props.data.imageUrl ? props.data.imageUrl : null;
   const videoUrl = props.data.videoUrl ? props.data.videoUrl : null;
   const firstName = props.data.authorName;
-  const icon = props.data.author.imageURL;
+  const icon = props.data.icon;
   const content = props.data.content;
   const id = props.data.author;
+  // console.log(id);
   useEffect(() => {
     likes?.map((id) => {
       if (id === userData._id) {
@@ -63,7 +65,7 @@ const PostLayout = (props) => {
             alt="user-icon"
             className="w-8 h-8 rounded-full mr-2"
           />
-          <Link to={`/userprofile/${id}`}>
+          <Link to={`/userprofile/${id._id}`}>
             <span className="font-bold">{firstName}</span>
           </Link>
         </div>

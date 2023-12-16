@@ -17,6 +17,7 @@ const Createbar = ({ onClose }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [posted, setPosted] = useState(false);
   const dispatch = useDispatch();
+  
   const handlePost = () => {
     // Handle logic for posting the new thread
     const data = {
@@ -26,6 +27,7 @@ const Createbar = ({ onClose }) => {
       icon: userData.imageURL,
       authorName: userName,
     };
+    // console.log(data);
     dispatch(createPostAsync({ userData: data, token: userToken }));
     setIsOpen(false);
     // Trigger the onClose callback (if provided)
