@@ -2,14 +2,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createCommentAsync, selectcreatecomments } from "./commentSlice";
-import { token } from "../user/userSlice";
+import { selectUserData, token } from "../user/userSlice";
 
 const PostForm = ({ username, imageUrl, postId }) => {
   // {username,imageurl,postid}
   // console.log({ username, imageUrl, postId });
   const [Text, setText] = useState("");
   const [posted, setposted] = useState(false);
-
+  const user = useSelector(selectUserData);
   const textareaRef = useRef(null);
 
   const handleTextChange = (event) => {
@@ -33,7 +33,7 @@ const PostForm = ({ username, imageUrl, postId }) => {
         postId: postId,
         content: Text,
         username: username,
-        imageUrl: imageUrl,
+        imageUrl: user.imageURL,
       })
     );
     setposted(true);
