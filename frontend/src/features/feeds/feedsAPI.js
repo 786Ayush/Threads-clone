@@ -2,7 +2,7 @@ import { resolvePath } from "react-router-dom";
 
 export function getFeeds(token) {
   return new Promise(async (resolve) => {
-    const response = await fetch("/posts", {
+    const response = await fetch("https://threads-clone-jb28.onrender.com/posts", {
       method: "GET",
       headers: {
         "content-Type": "application/json",
@@ -19,7 +19,7 @@ export function createFeed({ userData, token }) {
   // console.log({ userData, token });
   return new Promise(async (resolve) => {
     try {
-      const response = await fetch("/posts", {
+      const response = await fetch("https://threads-clone-jb28.onrender.com/posts", {
         method: "POST",
         headers: {
           "content-Type": "application/json",
@@ -49,7 +49,7 @@ export function updateLike({ username, action, token, id }) {
   // console.log({ username, action, token, id });
   return new Promise(async (resolve) => {
     try {
-      const response = await fetch(`/posts/${id}`, {
+      const response = await fetch(`https://threads-clone-jb28.onrender.com/posts/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export function updateLike({ username, action, token, id }) {
 }
 export function getFeedsbyId({ token, id }) {
   return new Promise(async (resolve) => {
-    const response = await fetch(`/posts/${id}`, {
+    const response = await fetch(`https://threads-clone-jb28.onrender.com/posts/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +92,7 @@ export function getFeedsbyId({ token, id }) {
 export function getFeedsbyUserId({ token, id }) {
   return new Promise(async (resolve) => {
     const response = await fetch(
-      `/posts/userIdpost/${id}`,
+      `https://threads-clone-jb28.onrender.com/posts/userIdpost/${id}`,
       {
         method: "GET",
         headers: {

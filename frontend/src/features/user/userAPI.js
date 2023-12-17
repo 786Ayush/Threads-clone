@@ -7,7 +7,7 @@ export function fetchCount(amount = 1) {
 // A mock function to mimic making an async request for data
 export function Signup(userData) {
   return new Promise(async (resolve) => {
-    const response = await fetch("/auth/signup", {
+    const response = await fetch("https://threads-clone-jb28.onrender.com/auth/signup", {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {
@@ -21,7 +21,7 @@ export function Signup(userData) {
 
 export function Login({ username, password }) {
   return new Promise(async (resolve) => {
-    const response = await fetch("/auth/login", {
+    const response = await fetch("https://threads-clone-jb28.onrender.com/auth/login", {
       method: "POST",
       body: JSON.stringify({ username: username, password: password }),
       headers: {
@@ -35,7 +35,7 @@ export function Login({ username, password }) {
 }
 export function editProfile({ userData, token, id }) {
   return new Promise(async (resolve) => {
-    const response = await fetch(`/users/${id}`, {
+    const response = await fetch(`https://threads-clone-jb28.onrender.com/users/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         name: userData.name,
@@ -55,7 +55,7 @@ export function editProfile({ userData, token, id }) {
 
 export function CheckUser(token) {
   return new Promise(async (resolve) => {
-    const response = await fetch("/auth/check", {
+    const response = await fetch("https://threads-clone-jb28.onrender.com/auth/check", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -70,7 +70,7 @@ export function CheckUser(token) {
 export function getUserbyId({ token, id }) {
   // console.log({token,id});
   return new Promise(async (resolve) => {
-    const response = await fetch(`/users/${id}`, {
+    const response = await fetch(`https://threads-clone-jb28.onrender.com/users/${id}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -84,7 +84,7 @@ export function getUserbyId({ token, id }) {
 export function getUserByUsername({ username, token }) {
   return new Promise(async (resolve) => {
     // console.log({username,token})
-    const response = await fetch("/users/search", {
+    const response = await fetch("https://threads-clone-jb28.onrender.com/users/search", {
       method: "POST",
       body: JSON.stringify({ username }),
       headers: {
@@ -100,7 +100,7 @@ export function getUserByUsername({ username, token }) {
 export function addFollowing({ id, username, token }) {
   return new Promise(async (resolve) => {
     const response = await fetch(
-      `/users/${id}/followings/add`,
+      `https://threads-clone-jb28.onrender.com/users/${id}/followings/add`,
       {
         method: "POST",
         body: JSON.stringify({ username }),
@@ -118,7 +118,7 @@ export function addFollowing({ id, username, token }) {
 export function addFollower({ id, username, token }) {
   return new Promise(async (resolve) => {
     const response = await fetch(
-      `/users/${id}/followers/add`,
+      `https://threads-clone-jb28.onrender.com/users/${id}/followers/add`,
       {
         method: "POST",
         body: JSON.stringify({ username }),
@@ -136,7 +136,7 @@ export function addFollower({ id, username, token }) {
 export function getFollowers({ id, token }) {
   return new Promise(async (resolve) => {
     const response = await fetch(
-      `/users/${id}/followers`,
+      `https://threads-clone-jb28.onrender.com/users/${id}/followers`,
       {
         method: "GET",
         headers: {
@@ -153,7 +153,7 @@ export function getFollowers({ id, token }) {
 export function getFollowings({ id, token }) {
   return new Promise(async (resolve) => {
     const response = await fetch(
-      `/users/${id}/followings`,
+      `https://threads-clone-jb28.onrender.com/users/${id}/followings`,
       {
         method: "GET",
         headers: {
