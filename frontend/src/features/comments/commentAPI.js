@@ -7,7 +7,7 @@ export function fetchCount(amount = 1) {
 export function getcommentsbyId({ token, id }) {
   return new Promise(async (resolve) => {
     const response = await fetch(
-      `http://localhost:8080/comments/getcomment/${id}`,
+      `/comments/getcomment/${id}`,
       {
         method: "GET",
         headers: {
@@ -23,7 +23,7 @@ export function getcommentsbyId({ token, id }) {
 }
 export function createcomment({ token, postId, content, username, imageUrl }) {
   return new Promise(async (resolve) => {
-    const response = await fetch(`http://localhost:8080/comments/${postId}`, {
+    const response = await fetch(`/comments/${postId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
